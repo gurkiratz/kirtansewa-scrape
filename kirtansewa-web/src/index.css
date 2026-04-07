@@ -1,0 +1,50 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-surface: #111111;
+  --color-card: #1c1c1c;
+  --color-panel: #161616;
+  --color-border: #282828;
+  --color-gold: #d4a853;
+  --color-text-primary: #eeeeee;
+  --color-text-secondary: #888888;
+  --color-text-muted: #555555;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #111111;
+  color: #eeeeee;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Thin custom scrollbars */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #282828;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
+}
+
+/* Range input gold accent */
+input[type='range'] {
+  accent-color: #d4a853;
+}
