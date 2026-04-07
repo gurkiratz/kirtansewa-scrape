@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artist – Kirtan Sewa</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #111111;
+      --surface: #1a1a1a;
+      --panel: #161616;
+      --border: #282828;
+      --gold: #d4a853;
+      --gold-dim: rgba(212, 168, 83, 0.1);
+      --gold-border: rgba(212, 168, 83, 0.3);
+      --text: #eeeeee;
+      --text-2: #888888;
+      --text-3: #555555;
+      --nav-h: 56px;
+      --player-h: 88px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      height: var(--nav-h);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+      gap: 16px;
+      flex-shrink: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+
+    .nav-back {
+      font-size: 13px;
+      color: var(--text-3);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+      white-space: nowrap;
+    }
+    .nav-back:hover { color: var(--text-2); }
+
+    .nav-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .nav-artist {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-spacer { flex: 1; }
+
+    .logo {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-transform: lowercase;
+      white-space: nowrap;
+    }
+
+    /* MAIN LAYOUT */
+    .main {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* LEFT PANEL */
+    .left {
+      width: 400px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .left::-webkit-scrollbar { width: 4px; }
+    .left::-webkit-scrollbar-track { background: transparent; }
+    .left::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .artist-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+
+    .artist-info {
+      padding: 28px 32px 40px;
+    }
+
+    .artist-name {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+
+    .artist-bio {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .artist-bio p {
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--text-2);
+    }
+
+    /* RIGHT PANEL */
+    .right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .queue-header {
+      padding: 20px 32px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .queue-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    .queue-count {
+      font-size: 11px;
+      color: var(--text-3);
+    }
+
+    .queue {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .queue::-webkit-scrollbar { width: 4px; }
+    .queue::-webkit-scrollbar-track { background: transparent; }
+    .queue::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .track {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 32px;
+      height: 52px;
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+      transition: background 0.12s;
+    }
+
+    .track:hover { background: var(--surface); }
+
+    .track.active {
+      background: var(--gold-dim);
+    }
+
+    .track-num {
+      font-size: 12px;
+      color: var(--text-3);
+      width: 20px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .track.active .track-num { color: var(--gold); }
+
+    .track-icon {
+      width: 16px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+    }
+
+    .track-name {
+      font-size: 13px;
+      color: var(--text-2);
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      transition: color 0.12s;
+    }
+
+    .track:hover .track-name { color: var(--text); }
+    .track.active .track-name { color: var(--text); }
+
+    /* PLAYER */
+    .player {
+      height: var(--player-h);
+      border-top: 1px solid var(--border);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-shrink: 0;
+      background: var(--panel);
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .ctrl-btn {
+      background: none;
+      border: none;
+      color: var(--text-2);
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: color 0.15s;
+    }
+    .ctrl-btn:hover { color: var(--text); }
+
+    .play-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111;
+      transition: opacity 0.15s;
+    }
+    .play-btn:hover { opacity: 0.85; }
+
+    .player-info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .now-playing-label {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    .now-playing-name {
+      font-size: 13px;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .time {
+      font-size: 11px;
+      color: var(--text-3);
+      width: 34px;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .time.right { text-align: right; }
+
+    .progress-bar {
+      flex: 1;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gold);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    audio { display: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="index.html">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <polyline points="9,2 4,7 9,12"/>
+    </svg>
+    All Artists
+  </a>
+  <span class="nav-divider"></span>
+  <span class="nav-artist" id="nav-artist-name">—</span>
+  <span class="nav-spacer"></span>
+  <span class="logo">kirtan sewa</span>
+</nav>
+
+<div class="main">
+  <!-- LEFT -->
+  <div class="left">
+    <img class="artist-img" id="artist-img" src="" alt="" />
+    <div class="artist-info">
+      <h1 class="artist-name" id="artist-name">—</h1>
+      <div class="artist-bio" id="artist-bio"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="queue-header">
+      <span class="queue-title">Tracks</span>
+      <span class="queue-count" id="track-count"></span>
+    </div>
+    <div class="queue" id="queue"></div>
+
+    <div class="player">
+      <div class="player-controls">
+        <button class="ctrl-btn" id="btn-prev" title="Previous">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <rect x="2" y="3" width="2" height="10" rx="1"/>
+            <path d="M13 3.5L6 8l7 4.5V3.5z"/>
+          </svg>
+        </button>
+        <button class="play-btn" id="btn-play">
+          <svg id="icon-play" width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
+            <path d="M3 2l9 5-9 5V2z"/>
+          </svg>
+          <svg id="icon-pause" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" style="display:none">
+            <rect x="3" y="2" width="3" height="10" rx="1"/>
+            <rect x="8" y="2" width="3" height="10" rx="1"/>
+          </svg>
+        </button>
+        <button class="ctrl-btn" id="btn-next" title="Next">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <rect x="12" y="3" width="2" height="10" rx="1"/>
+            <path d="M3 3.5l7 4.5-7 4.5V3.5z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="player-info">
+        <span class="now-playing-label">Now playing</span>
+        <span class="now-playing-name" id="now-playing">—</span>
+        <div class="progress-wrap">
+          <span class="time" id="time-curr">0:00</span>
+          <div class="progress-bar" id="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+          </div>
+          <span class="time right" id="time-dur">0:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+  // ── Data ──────────────────────────────────────────────────────────────────
+  const ARTISTS = {
+    "01-bhai-ajit-singh-jalandhar": {
+      name: "Bhai Ajit Singh (Jalandhar)",
+      image: "https://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233029/Bhai-Ajit-Singh-Jalandhar-1.jpg",
+      bio: [
+        "The information below regarding Bhai Ajit Singh Ji was obtained from an interview with his son, Bhai Harjinder Singh on the YouTube channel 'True Promotion'.",
+        "Bhai Ajit Singh Ji was blessed with a very powerful and melodious voice. He was a very popular Kirtaniya in his time and served the Sikh Panth with his deep knowledge of Gurbani and Kirtan. His birth took place in a village in Hoshiarpur district of Punjab on the 4th of September 1953.",
+        "His philosophy was to learn something from everyone. He believed that everyone had some knowledge to share. Bhai Ajit Singh Ji was given the title 'Ustad Kirtani' by the Sangat and other Kirtanis who listened to him.",
+        "Bhai Ajit Singh Ji passed away on 14th February 2019. His son has formed his own jatha and is continuing the legacy."
+      ],
+      tracks: [
+        { name: "Aisey Gur Kou Bal Bal Jayea", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233036/Bhai-Ajit-Singh-Jalandhar-Aisey-Gur-Kou-Bal-Bal-Jayea.mp3" },
+        { name: "Tumri Kirpa te Manukh Deh Payee Hey", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233036/Bhai-Ajit-Singh-Jalandhar-Tumri-Kirpa-te-Manukh-Deh-Payee-Hey.mp3" },
+        { name: "Aisi Kirpa Mohe Karo", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233035/Bhai-Ajit-Singh-Jalandhar-Aisi-Kirpa-Mohe-Karo.mp3" },
+        { name: "Chandan Ka Birva", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233035/Bhai-Ajit-Singh-Jalandhar-Chandan-Ka-Birva.mp3" },
+        { name: "Har Jan Kou Ehee Suhaave", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233034/Bhai-Ajit-Singh-Jalandhar-Har-Jan-Kou-Ehee-Suhaave.mp3" },
+        { name: "Jaagna Jaagan Neeka", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233033/Bhai-Ajit-Singh-Jalandhar-Jaagna-Jaagan-Neeka.mp3" },
+        { name: "Saadh Sang Har Kirtan", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233033/Bhai-Ajit-Singh-Jalandhar-Saadh-Sang-Har-Kirtan.mp3" },
+        { name: "So Kich Kar Jit Mel", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233032/Bhai-Ajit-Singh-Jalandhar-So-Kich-Kar-Jit-Mel.mp3" },
+        { name: "Sabhna Vich Tu Vartada Shaha", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233032/Bhai-Ajit-Singh-Jalandhar-01-Sabhna-Vich-Tu-Vartada-Shaha.mp3" },
+        { name: "Aise Gur Ko Bal Bal Jaiye", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233031/Bhai-Ajit-Singh-Jalandhar-02-Aise-Gur-Ko-Bal-Bal-Jaiye.mp3" },
+        { name: "Kahe Man Tu Dolta", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233031/Bhai-Ajit-Singh-Jalandhar-03-Kahe-Man-Tu-Dolta.mp3" },
+        { name: "Meharwan Sahib Meharwan", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233030/Bhai-Ajit-Singh-Jalandhar-04-Meharwan-Sahib-Meharwan.mp3" },
+        { name: "Sukh Hove Din Raati", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233030/Bhai-Ajit-Singh-Jalandhar-05-Sukh-Hove-Din-Raati.mp3" },
+        { name: "Anchal Geh Ke Sadh Ka (with Katha)", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/06/21232931/Bhai-Ajit-Singh-Jalandhar-Anchal-Geh-Ke-Sadh-Ka-with-Katha.mp3" }
+      ]
+    },
+    "02-bhai-ajit-singh-alankari": {
+      name: "Bhai Ajit Singh Alankari",
+      image: "https://cdn.kirtansewa.net/wp-content/uploads/2021/02/21233712/Bhai-Ajit-Singh-Alankari-3.jpg",
+      bio: [
+        "Bhai Ajit Singh Ji Alankari was born on 14th August 1940 in the city of Rawalpindi, which is now in Pakistan.",
+        "He was one of the senior students of Giani Hardit Singh Ji of the Gurmat Vidhyala at Gurdwara Rakab Ganj Sahib. In his early years, Alankari Ji accompanied Bhai Inder Singh Gujranwala on the side harmonium before forming his own jatha.",
+        "Bhai Ajit Singh Alankari began his tour around the world in 1972 and he traveled to 85 countries in total before settling down in Montreal, Canada in 1988.",
+        "He was very knowledgeable about Raags and always made it a point to announce the name of the Raag to the Sangat before he performed. Bhai Ajit Singh Alankari passed away peacefully on 20th February 2014."
+      ],
+      tracks: [
+        { name: "Sain Alakh Apaar (Bhairo)", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234046/Bhai-Ajit-Singh-Alankari-01-Sain-Alakh-Apaar-Bhairo.mp3" },
+        { name: "Mere Lalan Ki Sobha (Kalyan)", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234046/Bhai-Ajit-Singh-Alankari-02-Mere-Lalan-Ki-Sobha-Kalyan.mp3" },
+        { name: "Mere Sahib Tu Maian (Kalavati)", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234045/Bhai-Ajit-Singh-Alankari-03-Mere-Sahib-Tu-Maian-Kalavati.mp3" },
+        { name: "Hum Santan Sio Ban Aayi", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234045/Bhai-Ajit-Singh-Alankari-04-Hum-Santan-Sio-Ban-Aayi.mp3" },
+        { name: "Aisi Maang Gobind Te", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234044/Bhai-Ajit-Singh-Alankari-05-Aisi-Maang-Gobind-Te.mp3" },
+        { name: "Tum Ho Sabh Rajan Ke Raja", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234044/Bhai-Ajit-Singh-Alankari-06-Tum-Ho-Sabh-Rajan-Ke-Raja.mp3" },
+        { name: "Tu Saagaro Ratnagaro (Yaman)", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234044/Bhai-Ajit-Singh-Alankari-07-Tu-Saagaro-Ratnagaro-Yaman.mp3" },
+        { name: "Das Tumharo Ki Paavo Dhura", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234043/Bhai-Ajit-Singh-Alankari-08-Das-Tumharo-Ki-Paavo-Dhura.mp3" },
+        { name: "Har Amrit Bharvaasa", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234043/Bhai-Ajit-Singh-Alankari-09-Har-Amrit-Bharvaasa.mp3" },
+        { name: "Thakur Aayo Aaye", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234042/Bhai-Ajit-Singh-Alankari-10-Thakur-Aayo-Aaye.mp3" },
+        { name: "Mere Man Prem Lago (Incomplete)", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234042/Bhai-Ajit-Singh-Alankari-11-Mere-Man-Prem-Lago-Incomplete.mp3" },
+        { name: "Mil Mere Gobind Apna Naam Deho", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234042/Bhai-Ajit-Singh-Alankari-12-Mil-Mere-Gobind-Apna-Naam-Deho.mp3" },
+        { name: "Saachi Preet Hum Tum Sion", url: "http://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234041/Bhai-Ajit-Singh-Alankari-13-Saachi-Preet-Hum-Tum-Sion.mp3" }
+      ]
+    },
+    "03-akal-sangeet-sabha-amritsar": {
+      name: "Akal Sangeet Sabha (Amritsar)",
+      image: "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003924/Akal-Sangeet-Sabha-Amritsar-2-2.jpg",
+      bio: [
+        "Bhai Arjan Singh Ji, son of Bhai Kartar Singh and Mata Mohan Kaur, was born on 21st May 1932 in Amritsar. His parents were true devotees of Sri Harmandir Sahib, Amritsar.",
+        "In 1944, Bhai Arjan Singh Ji got deeply inclined towards Kirtan when he listened to Sant Sujan Singh Ji perform Kirtan in Amritsar. By 1951, he had obtained the divine knowledge of Raags and formed a jatha which he named 'Akal Sangeet Sabha' after staging his first performance at Akal Takhat Sahib.",
+        "For many years, he organised an annual Kirtan Darbar in memory of Baba Nand Singh Ji. During the riots in 1984, Bhai Arjan Singh Ji traveled to Singapore, Thailand, and Malaysia to stand in support of the victims by promoting Gurbani.",
+        "In 2001, Bhai Sahib suffered a stroke but continued to perform Kirtan. Keeping up with the spirit of serving selflessly until the very end, Bhai Arjan Singh Ji took his last breath on 9th December 2003."
+      ],
+      tracks: [
+        { name: "Deho Sajan Aseesarhiyan", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003924/Akal-Sangeet-Sabha-Amritsar-01-Deho-Sajan-Aseesarhiyan.mp3" },
+        { name: "Ram Simar Pachtayenga", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003923/Akal-Sangeet-Sabha-Amritsar-02-Ram-Simar-Pachtayenga.mp3" },
+        { name: "Assan Bhi Othe Jaana", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003922/Akal-Sangeet-Sabha-Amritsar-03-Assan-Bhi-Othe-Jaana.mp3" },
+        { name: "Waheguru Ji", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003922/Akal-Sangeet-Sabha-Amritsar-04-Waheguru-Ji.mp3" },
+        { name: "Oocha Mohan Sabh Te Oocha", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003921/Akal-Sangeet-Sabha-Amritsar-05-Oocha-Mohan-Sabh-Te-Oocha.mp3" },
+        { name: "Jis Da Karta Mitar", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003921/Akal-Sangeet-Sabha-Amritsar-06-Jis-Da-Karta-Mitar.mp3" },
+        { name: "Main Gareeb Sach Tek (Incomplete)", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003919/Akal-Sangeet-Sabha-Amritsar-07-Main-Gareeb-Sach-Tek-Incomplete.mp3" },
+        { name: "Sansar Samunde Taar Gobinde", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003918/Akal-Sangeet-Sabha-Amritsar-08-Sansar-Samunde-Taar-Gobinde.mp3" },
+        { name: "Aayo Padan Sunan Ko Bani", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003917/Akal-Sangeet-Sabha-Amritsar-09-Aayo-Padan-Sunan-Ko-Bani.mp3" },
+        { name: "Anand Sahib", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003917/Akal-Sangeet-Sabha-Amritsar-10-Anand-Sahib.mp3" },
+        { name: "Tera Thaan Suhaava", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003917/Akal-Sangeet-Sabha-Amritsar-11-Tera-Thaan-Suhaava.mp3" },
+        { name: "Charan Chalo Marag Gobind", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003916/Akal-Sangeet-Sabha-Amritsar-12-Charan-Chalo-Marag-Gobind.mp3" },
+        { name: "Meri Abhay Benti Sun Leeje", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003916/Akal-Sangeet-Sabha-Amritsar-13-Meri-Abhay-Benti-Sun-Leeje.mp3" },
+        { name: "Asa Di Vaar – 16th August 1985", url: "http://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003913/Akal-Sangeet-Sabha-Amritsar-14-Asa-Di-Vaar-on-16th-August-1985.mp3" }
+      ]
+    }
+  };
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  const slug = new URLSearchParams(location.search).get("slug");
+  const artist = ARTISTS[slug];
+
+  if (!artist) {
+    document.body.innerHTML = '<p style="padding:40px;color:#888">Artist not found. <a href="index.html" style="color:#d4a853">← Back</a></p>';
+    throw new Error("Not found");
+  }
+
+  document.title = `${artist.name} – Kirtan Sewa`;
+  document.getElementById("nav-artist-name").textContent = artist.name;
+  document.getElementById("artist-img").src = artist.image;
+  document.getElementById("artist-img").alt = artist.name;
+  document.getElementById("artist-name").textContent = artist.name;
+  document.getElementById("track-count").textContent = `${artist.tracks.length} tracks`;
+  document.getElementById("artist-bio").innerHTML = artist.bio.map(p => `<p>${p}</p>`).join("");
+
+  // ── Player state ──────────────────────────────────────────────────────────
+  const audio = document.getElementById("audio");
+  let currentIndex = -1;
+  let isPlaying = false;
+
+  function fmt(s) {
+    if (!isFinite(s)) return "0:00";
+    const m = Math.floor(s / 60);
+    const ss = Math.floor(s % 60).toString().padStart(2, "0");
+    return `${m}:${ss}`;
+  }
+
+  function setActiveTrack(idx) {
+    document.querySelectorAll(".track").forEach((el, i) => {
+      el.classList.toggle("active", i === idx);
+      el.querySelector(".track-icon").innerHTML =
+        i === idx
+          ? `<svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M2 1l7 4-7 4V1z"/></svg>`
+          : "";
+    });
+    currentIndex = idx;
+    document.getElementById("now-playing").textContent = artist.tracks[idx].name;
+  }
+
+  function loadAndPlay(idx) {
+    setActiveTrack(idx);
+    audio.src = artist.tracks[idx].url;
+    audio.play().then(() => {
+      isPlaying = true;
+      updatePlayIcon();
+    }).catch(() => {});
+  }
+
+  function updatePlayIcon() {
+    document.getElementById("icon-play").style.display = isPlaying ? "none" : "";
+    document.getElementById("icon-pause").style.display = isPlaying ? "" : "none";
+  }
+
+  // ── Render queue ──────────────────────────────────────────────────────────
+  const queue = document.getElementById("queue");
+  queue.innerHTML = artist.tracks.map((t, i) => `
+    <div class="track" data-index="${i}">
+      <span class="track-num">${i + 1}</span>
+      <span class="track-icon"></span>
+      <span class="track-name">${t.name}</span>
+    </div>
+  `).join("");
+
+  queue.addEventListener("click", e => {
+    const row = e.target.closest(".track");
+    if (!row) return;
+    const idx = parseInt(row.dataset.index);
+    if (idx === currentIndex && isPlaying) {
+      audio.pause();
+      isPlaying = false;
+      updatePlayIcon();
+    } else {
+      loadAndPlay(idx);
+    }
+  });
+
+  // ── Player controls ───────────────────────────────────────────────────────
+  document.getElementById("btn-play").addEventListener("click", () => {
+    if (currentIndex === -1) { loadAndPlay(0); return; }
+    if (isPlaying) {
+      audio.pause();
+      isPlaying = false;
+    } else {
+      audio.play();
+      isPlaying = true;
+    }
+    updatePlayIcon();
+  });
+
+  document.getElementById("btn-prev").addEventListener("click", () => {
+    if (currentIndex > 0) loadAndPlay(currentIndex - 1);
+  });
+
+  document.getElementById("btn-next").addEventListener("click", () => {
+    if (currentIndex < artist.tracks.length - 1) loadAndPlay(currentIndex + 1);
+  });
+
+  audio.addEventListener("ended", () => {
+    if (currentIndex < artist.tracks.length - 1) loadAndPlay(currentIndex + 1);
+    else { isPlaying = false; updatePlayIcon(); }
+  });
+
+  audio.addEventListener("timeupdate", () => {
+    const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+    document.getElementById("progress-fill").style.width = pct + "%";
+    document.getElementById("time-curr").textContent = fmt(audio.currentTime);
+    document.getElementById("time-dur").textContent = fmt(audio.duration);
+  });
+
+  document.getElementById("progress-bar").addEventListener("click", e => {
+    if (!audio.duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+  });
+</script>
+</body>
+</html>

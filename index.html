@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kirtan Sewa</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #111111;
+      --surface: #1a1a1a;
+      --card: #1c1c1c;
+      --border: #282828;
+      --gold: #d4a853;
+      --gold-dim: rgba(212, 168, 83, 0.12);
+      --gold-border: rgba(212, 168, 83, 0.35);
+      --text: #eeeeee;
+      --text-2: #888888;
+      --text-3: #555555;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-transform: lowercase;
+    }
+
+    nav .count {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--text-3);
+    }
+
+    /* TOOLBAR */
+    .toolbar {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+      gap: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 0 0 300px;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-3);
+      pointer-events: none;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      height: 36px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0 12px 0 34px;
+      color: var(--text);
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .search-wrap input::placeholder { color: var(--text-3); }
+    .search-wrap input:focus { border-color: rgba(212,168,83,0.4); }
+
+    .spacer { flex: 1; }
+
+    .sort-label {
+      font-size: 12px;
+      color: var(--text-3);
+    }
+
+    .sort-btns {
+      display: flex;
+      gap: 4px;
+    }
+
+    .sort-btn {
+      height: 30px;
+      padding: 0 12px;
+      border-radius: 4px;
+      border: none;
+      background: transparent;
+      color: var(--text-2);
+      font-size: 12px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .sort-btn.active {
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .sort-btn:not(.active):hover {
+      color: var(--text);
+    }
+
+    /* GRID */
+    .grid-wrap {
+      padding: 40px 48px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--gold-border);
+      transform: translateY(-2px);
+    }
+
+    .card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      background: #1e1e1e;
+    }
+
+    .card-info {
+      padding: 16px 18px;
+      flex: 1;
+    }
+
+    .card-name {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.45;
+      margin-bottom: 5px;
+    }
+
+    .card-tracks {
+      font-size: 12px;
+      color: var(--text-2);
+    }
+
+    /* no results */
+    .no-results {
+      padding: 80px 0;
+      text-align: center;
+      color: var(--text-3);
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">kirtan sewa</span>
+  <span class="count" id="artist-count"></span>
+</nav>
+
+<div class="toolbar">
+  <div class="search-wrap">
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="5.5" cy="5.5" r="4"/>
+      <line x1="9" y1="9" x2="12" y2="12"/>
+    </svg>
+    <input type="search" id="search" placeholder="Search artists…" autocomplete="off" />
+  </div>
+
+  <span class="spacer"></span>
+  <span class="sort-label">Sort by</span>
+  <div class="sort-btns">
+    <button class="sort-btn active" data-sort="name">Name</button>
+    <button class="sort-btn" data-sort="tracks">Tracks</button>
+  </div>
+</div>
+
+<div class="grid-wrap">
+  <div class="grid" id="grid"></div>
+  <div class="no-results" id="no-results" style="display:none">No artists found</div>
+</div>
+
+<script>
+  const ARTISTS = [
+    {
+      slug: "01-bhai-ajit-singh-jalandhar",
+      name: "Bhai Ajit Singh (Jalandhar)",
+      image: "https://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233029/Bhai-Ajit-Singh-Jalandhar-1.jpg",
+      tracks: 14
+    },
+    {
+      slug: "02-bhai-ajit-singh-alankari",
+      name: "Bhai Ajit Singh Alankari",
+      image: "https://cdn.kirtansewa.net/wp-content/uploads/2021/02/21233712/Bhai-Ajit-Singh-Alankari-3.jpg",
+      tracks: 13
+    },
+    {
+      slug: "03-akal-sangeet-sabha-amritsar",
+      name: "Akal Sangeet Sabha (Amritsar)",
+      image: "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003924/Akal-Sangeet-Sabha-Amritsar-2-2.jpg",
+      tracks: 14
+    }
+  ];
+
+  let currentSort = "name";
+  let query = "";
+
+  function sortArtists(list) {
+    return [...list].sort((a, b) =>
+      currentSort === "name"
+        ? a.name.localeCompare(b.name)
+        : b.tracks - a.tracks
+    );
+  }
+
+  function render() {
+    const filtered = ARTISTS.filter(a =>
+      a.name.toLowerCase().includes(query.toLowerCase())
+    );
+    const sorted = sortArtists(filtered);
+    const grid = document.getElementById("grid");
+    const noResults = document.getElementById("no-results");
+    document.getElementById("artist-count").textContent = `${ARTISTS.length} artists`;
+
+    if (sorted.length === 0) {
+      grid.innerHTML = "";
+      noResults.style.display = "";
+      return;
+    }
+    noResults.style.display = "none";
+    grid.innerHTML = sorted.map(a => `
+      <a class="card" href="artist.html?slug=${a.slug}">
+        <img class="card-img" src="${a.image}" alt="${a.name}" loading="lazy" />
+        <div class="card-info">
+          <div class="card-name">${a.name}</div>
+          <div class="card-tracks">${a.tracks} tracks</div>
+        </div>
+      </a>
+    `).join("");
+  }
+
+  document.getElementById("search").addEventListener("input", e => {
+    query = e.target.value;
+    render();
+  });
+
+  document.querySelectorAll(".sort-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentSort = btn.dataset.sort;
+      document.querySelectorAll(".sort-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      render();
+    });
+  });
+
+  render();
+</script>
+</body>
+</html>
