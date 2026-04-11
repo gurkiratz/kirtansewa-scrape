@@ -55,7 +55,6 @@ export function PlayerDock() {
   const toggleShuffle = usePlayerStore((s) => s.toggleShuffle);
   const cycleRepeat = usePlayerStore((s) => s.cycleRepeat);
   const toggleQueueSheet = usePlayerStore((s) => s.toggleQueueSheet);
-  const seek = usePlayerStore((s) => s.seek);
 
   const initFromPersistedState = usePlayerStore((s) => s.initFromPersistedState);
 

@@ -13,7 +13,7 @@ interface TrackRowProps {
   showDragHandle?: boolean;
 }
 
-export function TrackRow({ track, index, globalIndex, isActive, isPlaying, showDragHandle }: TrackRowProps) {
+export function TrackRow({ track, index: _index, globalIndex, isActive, isPlaying: _isPlaying, showDragHandle }: TrackRowProps) {
   const playTrack = usePlayerStore((s) => s.playTrack);
   const removeFromQueue = usePlayerStore((s) => s.removeFromQueue);
 
