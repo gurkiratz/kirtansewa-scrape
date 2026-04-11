@@ -14,6 +14,7 @@ interface PlayerState {
   seek: number;
   duration: number;
   isMuted: boolean;
+  isQueueSheetOpen: boolean;
 }
 
 interface PlayerActions {
@@ -30,6 +31,7 @@ interface PlayerActions {
   toggleShuffle: () => void;
   cycleRepeat: () => void;
   reorderQueue: (from: number, to: number) => void;
+  toggleQueueSheet: () => void;
   _tick: () => void;
 }
 
@@ -65,6 +67,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
   seek: 0,
   duration: 0,
   isMuted: false,
+  isQueueSheetOpen: false,
 
   addToQueue: (tracks) => {
     const { queue } = get();
@@ -211,6 +214,10 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     const { repeatMode } = get();
     const next = order[(order.indexOf(repeatMode) + 1) % order.length];
     set({ repeatMode: next });
+  },
+
+  toggleQueueSheet: () => {
+    set((s) => ({ isQueueSheetOpen: !s.isQueueSheetOpen }));
   },
 
   reorderQueue: (from, to) => {

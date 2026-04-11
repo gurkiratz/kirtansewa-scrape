@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { useDataStore } from './store/dataStore';
 import { useKeyboard } from './hooks/useKeyboard';
 import { PlayerDock } from './components/PlayerDock';
+import { QueueSheet } from './components/QueueSheet';
 import { ArtistGrid } from './pages/ArtistGrid';
 import { ArtistDetail } from './pages/ArtistDetail';
 
@@ -36,6 +37,8 @@ function AppShell() {
 
       {/* Persistent player */}
       <PlayerDock />
+      {/* Mobile queue sheet */}
+      <QueueSheet />
     </div>
   );
 }
