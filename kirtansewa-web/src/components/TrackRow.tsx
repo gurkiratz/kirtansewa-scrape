@@ -32,7 +32,7 @@ export function TrackRow({ track, index, globalIndex, isActive, isPlaying, showD
       ref={setNodeRef}
       style={style}
       className={`
-        flex items-center gap-2.5 md:gap-3 px-4 py-2.5 border-b border-border/50 transition-colors duration-100 group
+        flex items-center gap-2.5 md:gap-3 px-4 py-2.5 border-b border-border/50 transition-colors duration-100 group touch-manipulation
         ${isActive ? 'bg-gold/10 border-l-2 border-l-gold' : 'hover:bg-white/5 border-l-2 border-l-transparent'}
         ${isDragging ? 'z-50' : ''}
       `}
@@ -41,7 +41,8 @@ export function TrackRow({ track, index, globalIndex, isActive, isPlaying, showD
         <button
           {...attributes}
           {...listeners}
-          className="text-text-muted hover:text-text-secondary cursor-grab active:cursor-grabbing touch-none shrink-0"
+          className="text-text-muted hover:text-text-secondary cursor-grab active:cursor-grabbing touch-none shrink-0 p-1 -m-1"
+          aria-label="Drag to reorder"
         >
           <GripVertical size={14} />
         </button>
