@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Play,
   Pause,
@@ -55,6 +56,12 @@ export function PlayerDock() {
   const cycleRepeat = usePlayerStore((s) => s.cycleRepeat);
   const toggleQueueSheet = usePlayerStore((s) => s.toggleQueueSheet);
   const seek = usePlayerStore((s) => s.seek);
+
+  const initFromPersistedState = usePlayerStore((s) => s.initFromPersistedState);
+
+  useEffect(() => {
+    initFromPersistedState();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const currentTrack = currentIndex >= 0 ? queue[currentIndex] : null;
   const RepeatIcon = repeatMode === "one" ? Repeat1 : Repeat;

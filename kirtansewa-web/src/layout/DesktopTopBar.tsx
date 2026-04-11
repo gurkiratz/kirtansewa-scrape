@@ -34,14 +34,14 @@ export function DesktopTopBar() {
       <div className="flex-1 relative">
         <Search
           size={14}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-text-primary/70 pointer-events-none"
         />
         <input
           type="text"
           placeholder="Search artists..."
           value={query}
           onChange={handleChange}
-          className="w-full bg-card border border-border rounded-md pl-8 pr-3 py-1.5 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-gold/50 transition-colors"
+          className="w-full bg-card border border-border rounded-md pl-8 pr-3 py-1.5 text-sm text-text-primary placeholder:text-text-primary/70 focus:outline-none focus:border-gold/50 transition-colors"
         />
       </div>
 

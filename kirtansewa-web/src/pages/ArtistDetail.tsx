@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -27,6 +27,21 @@ export function ArtistDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [bioExpanded, setBioExpanded] = useState(false);
+  const [glowVisible, setGlowVisible] = useState(false);
+  const glowTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  useEffect(() => {
+    if (detail?.image_url) {
+      const img = new Image();
+      img.src = detail.image_url;
+      img.onload = () => {
+        glowTimerRef.current = setTimeout(() => setGlowVisible(true), 50);
+      };
+    } else {
+      setGlowVisible(false);
+    }
+    return () => clearTimeout(glowTimerRef.current);
+  }, [detail?.image_url]);
 
   useEffect(() => {
     if (!slug) return;
@@ -109,13 +124,31 @@ export function ArtistDetail() {
 
   return (
     // Mobile: vertical scroll. Desktop: horizontal flex with independent panel scrolls.
-    <div className="flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden">
+    <div className="relative flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden">
+      {/* Blurred album art background glow — spans entire page */}
+      {detail.image_url && (
+        <div
+          className={`absolute inset-x-0 top-0 h-[40%] overflow-hidden pointer-events-none z-0 transition-opacity duration-1000 ease-out ${glowVisible ? "opacity-100" : "opacity-0"}`}
+          aria-hidden="true"
+        >
+          <div
+            className="absolute -inset-1/2 w-[200%] h-[200%] opacity-35 blur-[120px] saturate-150 scale-125"
+            style={{
+              backgroundImage: `url(${detail.image_url})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface/50 to-surface" />
+        </div>
+      )}
+
       {/* ── LEFT / INFO PANEL ── */}
-      <div className="w-full md:w-96 md:shrink-0 md:border-r border-border md:overflow-y-auto">
+      <div className="relative z-10 w-full md:w-96 md:shrink-0 md:border-r border-border md:overflow-y-auto">
         <div className="p-5 md:p-6">
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-text-muted hover:text-text-primary text-sm transition-colors mb-5"
+            className="flex items-center gap-2 text-text-primary/70 hover:text-text-primary text-sm transition-colors mb-5 p-1.5"
           >
             <ArrowLeft size={14} />
             All artists
@@ -224,13 +257,13 @@ export function ArtistDetail() {
 
         {/* On mobile, render tracks inline below the info */}
         <div className="md:hidden border-t border-border">
-          <TrackSection detail={detail} addToQueue={addToQueue} meta={meta} />
+          <TrackSection detail={detail} meta={meta} />
         </div>
       </div>
 
       {/* ── MIDDLE: TRACKS (desktop only) ── */}
-      <div className="hidden md:flex flex-1 flex-col overflow-hidden">
-        <TrackSection detail={detail} addToQueue={addToQueue} meta={meta} />
+      <div className="relative z-10 hidden md:flex flex-1 flex-col overflow-hidden">
+        <TrackSection detail={detail} meta={meta} />
       </div>
     </div>
   );
@@ -238,21 +271,17 @@ export function ArtistDetail() {
 
 function TrackSection({
   detail,
-  addToQueue,
   meta,
 }: {
   detail: ArtistDetailType;
-  addToQueue: (tracks: ReturnType<typeof toTrack>[]) => void;
   meta?: TrackMeta;
 }) {
   return (
     <>
       {/* Column header */}
-      <div className="flex items-center gap-3 px-5 py-2.5 border-b border-border text-[11px] text-text-muted uppercase tracking-wider">
+      <div className="flex items-center gap-3 px-5 py-2.5 border-b border-border text-[11px] text-text-primary uppercase tracking-wider">
         <span className="w-8 text-center shrink-0">#</span>
         <span className="flex-1">Title</span>
-        <span className="w-16 text-right shrink-0">Duration</span>
-        <span className="w-10 text-center shrink-0">Menu</span>
       </div>
 
       <div className="md:flex-1 md:overflow-y-auto">
@@ -263,7 +292,7 @@ function TrackSection({
               key={i}
               className="flex items-center gap-3 px-5 h-14 border-b border-border/50 hover:bg-white/5 active:bg-white/5 transition-colors group"
             >
-              <span className="text-sm text-text-muted w-8 text-center shrink-0">
+              <span className="text-sm text-text-primary/50 w-8 text-center shrink-0">
                 {i + 1}
               </span>
               <div className="flex-1 min-w-0">
@@ -275,18 +304,6 @@ function TrackSection({
                     {track.artistLabel}
                   </p>
                 )}
-              </div>
-              <span className="text-xs text-text-muted w-16 text-right shrink-0 tabular-nums">
-                --:--
-              </span>
-              <div className="w-10 flex justify-center shrink-0">
-                <button
-                  onClick={() => addToQueue([track])}
-                  className="opacity-0 group-hover:opacity-100 text-text-muted hover:text-gold transition-all"
-                  title="Add to queue"
-                >
-                  <MoreHorizontal size={16} />
-                </button>
               </div>
             </div>
           );

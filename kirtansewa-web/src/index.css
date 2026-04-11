@@ -44,6 +44,13 @@ body,
   background: #3a3a3a;
 }
 
+/* Prevent iOS Safari auto-zoom on focus (requires font-size >= 16px) */
+input:not([type='range']),
+textarea,
+select {
+  font-size: 16px;
+}
+
 /* Range input gold accent + thin track */
 input[type='range'] {
   accent-color: #d4a853;
