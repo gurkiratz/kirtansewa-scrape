@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useDataStore } from '../store/dataStore';
+import { usePlayerStore } from '../store/playerStore';
 import { useKeyboard } from '../hooks/useKeyboard';
 import { PlayerDock } from '../components/PlayerDock';
 import { QueueSheet } from '../components/QueueSheet';
@@ -9,15 +10,29 @@ import { DesktopTopBar } from './DesktopTopBar';
 import { MobileHeader } from './MobileHeader';
 import { MobileNavDrawer } from './MobileNavDrawer';
 
+const DEFAULT_TITLE = 'Kirtan Sewa';
+
 const SIDEBAR_KEY = 'sidebar-collapsed';
 
 export function AppLayout() {
   const fetchAll = useDataStore((s) => s.fetchAll);
+  const queue = usePlayerStore((s) => s.queue);
+  const currentIndex = usePlayerStore((s) => s.currentIndex);
   useKeyboard();
 
   useEffect(() => {
     fetchAll();
   }, [fetchAll]);
+
+  useEffect(() => {
+    const track = currentIndex >= 0 ? queue[currentIndex] : null;
+    if (track) {
+      const parts = [track.displayName, track.artistLabel].filter(Boolean);
+      document.title = parts.join(' · ') + ' | ' + DEFAULT_TITLE;
+    } else {
+      document.title = DEFAULT_TITLE;
+    }
+  }, [queue, currentIndex]);
 
   const [sidebarCollapsed, setSidebarCollapsed] = useState(
     () => localStorage.getItem(SIDEBAR_KEY) === '1',

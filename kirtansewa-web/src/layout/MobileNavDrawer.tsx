@@ -53,9 +53,11 @@ export function MobileNavDrawer({ open, onClose }: Props) {
       >
         {/* Header */}
         <div className="h-14 flex items-center justify-between px-4 shrink-0 border-b border-border">
-          <span className="text-text-primary text-sm font-semibold uppercase tracking-widest">
-            Kirtan Sewa
-          </span>
+          <img
+            src="/logo-2.svg"
+            alt="Kirtan Sewa Logo"
+            className="h-7 w-auto inline mr-2 align-middle"
+          />
           <button
             onClick={onClose}
             className="text-text-muted hover:text-text-primary transition-colors"
@@ -76,7 +78,7 @@ export function MobileNavDrawer({ open, onClose }: Props) {
                 `flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition-colors ${
                   isActive
                     ? "bg-white/5 text-gold"
-                    : "text-text-secondary hover:text-text-primary hover:bg-white/5"
+                    : "text-text-primary/80 hover:text-text-primary hover:bg-white/5"
                 }`
               }
             >
