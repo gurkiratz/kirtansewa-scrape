@@ -3,7 +3,6 @@ import {
   Home,
   Library,
   Info,
-  ExternalLink,
   PanelLeftClose,
   PanelLeftOpen,
 } from "lucide-react";
@@ -107,7 +106,6 @@ export function DesktopSidebar({ collapsed, onToggle }: Props) {
           }`}
           title={collapsed ? "GitHub" : undefined}
         >
-          {/* <ExternalLink size={18} className="shrink-0" /> */}
           <SiGithub size={18} className="shrink-0" />
 
           {!collapsed && <span className="truncate">GitHub</span>}
