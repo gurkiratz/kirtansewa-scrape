@@ -24,7 +24,7 @@ export function VolumeControl() {
         className="text-text-secondary hover:text-text-primary transition-colors"
         title={isMuted ? 'Unmute (M)' : 'Mute (M)'}
       >
-        <VolumeIcon size={16} />
+        <VolumeIcon size={15} />
       </button>
       <input
         type="range"
@@ -33,7 +33,7 @@ export function VolumeControl() {
         step={0.02}
         value={displayVolume}
         onChange={(e) => setVolume(Number(e.target.value))}
-        className="w-20 accent-gold cursor-pointer"
+        className="w-24 accent-gold cursor-pointer"
         title="Volume"
       />
     </div>

@@ -20,6 +20,8 @@ interface PlayerState {
 interface PlayerActions {
   addToQueue: (tracks: Track[]) => void;
   clearQueue: () => void;
+  trimQueueToCurrent: () => void;
+  removeFromQueue: (index: number) => void;
   playTrack: (index: number) => void;
   togglePlay: () => void;
   next: () => void;
@@ -82,6 +84,40 @@ export const usePlayerStore = create<PlayerStore>((set, get) => ({
     }
     _soundId = null;
     set({ queue: [], currentIndex: -1, isPlaying: false, seek: 0, duration: 0 });
+  },
+
+  trimQueueToCurrent: () => {
+    const { queue, currentIndex } = get();
+    if (currentIndex < 0 || queue.length === 0) {
+      get().clearQueue();
+      return;
+    }
+    set({ queue: [queue[currentIndex]], currentIndex: 0 });
+  },
+
+  removeFromQueue: (index) => {
+    const { queue, currentIndex } = get();
+    if (index < 0 || index >= queue.length) return;
+
+    if (queue.length === 1) {
+      get().clearQueue();
+      return;
+    }
+
+    const next = [...queue];
+    next.splice(index, 1);
+
+    if (index === currentIndex) {
+      const newIndex = Math.min(index, next.length - 1);
+      set({ queue: next, currentIndex: -1 });
+      get().playTrack(newIndex);
+      return;
+    }
+
+    set({
+      queue: next,
+      currentIndex: index < currentIndex ? currentIndex - 1 : currentIndex,
+    });
   },
 
   playTrack: (index) => {

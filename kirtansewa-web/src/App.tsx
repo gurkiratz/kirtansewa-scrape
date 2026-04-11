@@ -35,9 +35,7 @@ function AppShell() {
         </Routes>
       </main>
 
-      {/* Persistent player */}
       <PlayerDock />
-      {/* Mobile queue sheet */}
       <QueueSheet />
     </div>
   );

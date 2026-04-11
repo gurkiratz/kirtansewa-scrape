@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, ListPlus, Trash2 } from 'lucide-react';
+import { ArrowLeft, Play, Shuffle, Plus, Heart, MoreHorizontal } from 'lucide-react';
 import type { ArtistDetail as ArtistDetailType } from '../types';
-import { toTrack } from '../types';
+import { toTrack, type TrackMeta } from '../types';
 import { ArtistImage } from '../components/ArtistImage';
-import { TrackList } from '../components/TrackList';
 import { usePlayerStore } from '../store/playerStore';
 import { useDataStore } from '../store/dataStore';
 
@@ -15,7 +14,7 @@ export function ArtistDetail() {
   const addToQueue = usePlayerStore((s) => s.addToQueue);
   const clearQueue = usePlayerStore((s) => s.clearQueue);
   const playTrack = usePlayerStore((s) => s.playTrack);
-  const queue = usePlayerStore((s) => s.queue);
+  const toggleShuffle = usePlayerStore((s) => s.toggleShuffle);
 
   const [detail, setDetail] = useState<ArtistDetailType | null>(null);
   const [loading, setLoading] = useState(true);
@@ -51,15 +50,29 @@ export function ArtistDetail() {
       });
   }, [slug, artists]);
 
+  const meta: TrackMeta | undefined = detail
+    ? { artistLabel: detail.name, coverUrl: detail.image_url }
+    : undefined;
+
   const handleAddAll = () => {
     if (!detail) return;
-    addToQueue(detail.tracks.map(toTrack));
+    addToQueue(detail.tracks.map((r) => toTrack(r, meta)));
   };
 
   const handlePlayAll = () => {
     if (!detail) return;
     clearQueue();
-    addToQueue(detail.tracks.map(toTrack));
+    addToQueue(detail.tracks.map((r) => toTrack(r, meta)));
+    playTrack(0);
+  };
+
+  const handleShuffleAll = () => {
+    if (!detail) return;
+    clearQueue();
+    const tracks = detail.tracks.map((r) => toTrack(r, meta));
+    const shuffled = [...tracks].sort(() => Math.random() - 0.5);
+    addToQueue(shuffled);
+    toggleShuffle();
     playTrack(0);
   };
 
@@ -119,19 +132,43 @@ export function ArtistDetail() {
           <h1 className="hidden md:block text-text-primary text-xl font-semibold mb-1">{detail.name}</h1>
           <p className="hidden md:block text-text-muted text-xs mb-4">{detail.tracks.length} tracks</p>
 
-          <div className="flex gap-2 mb-5 mt-4 md:mt-0">
+          <div className="flex items-center gap-3 mb-5 mt-4 md:mt-0">
             <button
               onClick={handlePlayAll}
-              className="flex-1 bg-gold text-surface text-sm font-medium py-2 rounded-sm hover:bg-gold/85 transition-colors"
+              className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-surface hover:bg-gold/85 transition-colors"
+              title="Play all"
             >
-              Play all
+              <Play size={18} className="translate-x-0.5" />
+            </button>
+            <button
+              onClick={handleShuffleAll}
+              className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-surface hover:bg-gold/85 transition-colors"
+              title="Shuffle all"
+            >
+              <Shuffle size={17} />
             </button>
             <button
               onClick={handleAddAll}
-              className="flex items-center gap-1.5 px-3 py-2 border border-border rounded-sm text-text-secondary hover:text-text-primary hover:border-gold/40 text-sm transition-colors"
+              className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:border-text-secondary transition-colors"
+              title="Add to queue"
             >
-              <ListPlus size={15} />
-              Add to queue
+              <Plus size={18} />
+            </button>
+            <button
+              type="button"
+              className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:border-text-secondary transition-colors"
+              aria-label="Favorite (not available yet)"
+              title="Favorite"
+            >
+              <Heart size={16} />
+            </button>
+            <button
+              type="button"
+              className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:border-text-secondary transition-colors"
+              aria-label="More options (not available yet)"
+              title="More options"
+            >
+              <MoreHorizontal size={16} />
             </button>
           </div>
 
@@ -164,35 +201,15 @@ export function ArtistDetail() {
           <TrackSection
             detail={detail}
             addToQueue={addToQueue}
+            meta={meta}
           />
         </div>
       </div>
 
       {/* ── MIDDLE: TRACKS (desktop only) ── */}
-      <div className="hidden md:flex flex-1 flex-col overflow-hidden border-r border-border">
-        <TrackSection detail={detail} addToQueue={addToQueue} />
+      <div className="hidden md:flex flex-1 flex-col overflow-hidden">
+        <TrackSection detail={detail} addToQueue={addToQueue} meta={meta} />
       </div>
-
-      {/* ── RIGHT: QUEUE (desktop only, conditional) ── */}
-      {queue.length > 0 && (
-        <div className="hidden lg:flex flex-col w-72 shrink-0 overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-3 border-b border-border shrink-0">
-            <span className="text-[11px] text-text-muted uppercase tracking-widest font-medium">
-              Queue · {queue.length}
-            </span>
-            <button
-              onClick={clearQueue}
-              className="flex items-center gap-1 text-text-muted hover:text-text-secondary text-xs transition-colors"
-            >
-              <Trash2 size={12} />
-              Clear
-            </button>
-          </div>
-          <div className="flex-1 overflow-y-auto">
-            <TrackList />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
@@ -200,36 +217,53 @@ export function ArtistDetail() {
 function TrackSection({
   detail,
   addToQueue,
+  meta,
 }: {
   detail: ArtistDetailType;
   addToQueue: (tracks: ReturnType<typeof toTrack>[]) => void;
+  meta?: TrackMeta;
 }) {
   return (
     <>
-      <div className="flex items-center px-5 py-3 border-b border-border">
-        <span className="text-[11px] text-text-muted uppercase tracking-widest font-medium">
-          Tracks · {detail.tracks.length}
-        </span>
+      {/* Column header */}
+      <div className="flex items-center gap-3 px-5 py-2.5 border-b border-border text-[11px] text-text-muted uppercase tracking-wider">
+        <span className="w-8 text-center shrink-0">#</span>
+        <span className="flex-1">Title</span>
+        <span className="w-16 text-right shrink-0">Duration</span>
+        <span className="w-10 text-center shrink-0">Menu</span>
       </div>
+
       <div className="md:flex-1 md:overflow-y-auto">
         {detail.tracks.map((raw, i) => {
-          const track = toTrack(raw);
+          const track = toTrack(raw, meta);
           return (
             <div
               key={i}
-              className="flex items-center gap-3 px-5 h-13 border-b border-border/50 hover:bg-white/5 active:bg-white/5 transition-colors group"
+              className="flex items-center gap-3 px-5 h-14 border-b border-border/50 hover:bg-white/5 active:bg-white/5 transition-colors group"
             >
-              <span className="text-xs text-text-muted w-5 text-right shrink-0">{i + 1}</span>
-              <span className="flex-1 text-[13px] text-text-secondary group-hover:text-text-primary truncate transition-colors">
-                {track.displayName}
+              <span className="text-sm text-text-muted w-8 text-center shrink-0">{i + 1}</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-[13px] text-text-primary font-medium truncate leading-tight">
+                  {track.displayName}
+                </p>
+                {track.artistLabel && (
+                  <p className="text-[11px] text-text-secondary truncate leading-tight mt-0.5">
+                    {track.artistLabel}
+                  </p>
+                )}
+              </div>
+              <span className="text-xs text-text-muted w-16 text-right shrink-0 tabular-nums">
+                --:--
               </span>
-              <button
-                onClick={() => addToQueue([track])}
-                className="opacity-0 group-hover:opacity-100 text-text-muted hover:text-gold transition-all"
-                title="Add to queue"
-              >
-                <ListPlus size={14} />
-              </button>
+              <div className="w-10 flex justify-center shrink-0">
+                <button
+                  onClick={() => addToQueue([track])}
+                  className="opacity-0 group-hover:opacity-100 text-text-muted hover:text-gold transition-all"
+                  title="Add to queue"
+                >
+                  <MoreHorizontal size={16} />
+                </button>
+              </div>
             </div>
           );
         })}

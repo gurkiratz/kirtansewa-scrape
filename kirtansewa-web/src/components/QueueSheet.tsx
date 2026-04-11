@@ -6,50 +6,47 @@ export function QueueSheet() {
   const isOpen = usePlayerStore((s) => s.isQueueSheetOpen);
   const toggleQueueSheet = usePlayerStore((s) => s.toggleQueueSheet);
   const queue = usePlayerStore((s) => s.queue);
-  const clearQueue = usePlayerStore((s) => s.clearQueue);
+  const trimQueueToCurrent = usePlayerStore((s) => s.trimQueueToCurrent);
 
   return (
     <>
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/60 z-40 md:hidden"
+          className="fixed inset-0 bg-black/60 z-40"
           onClick={toggleQueueSheet}
         />
       )}
 
-      {/* Sheet */}
+      {/* Sheet — slides from right */}
       <div
         className={`
-          fixed bottom-0 left-0 right-0 z-50 bg-panel border-t border-border rounded-t-xl
-          transition-transform duration-300 ease-out md:hidden
-          ${isOpen ? 'translate-y-0' : 'translate-y-full'}
+          fixed inset-y-0 right-0 z-50 bg-panel/80 backdrop-blur-xl border-l border-border
+          flex flex-col
+          w-full md:w-[min(420px,35vw)]
+          transition-transform duration-300 ease-out
+          ${isOpen ? 'translate-x-0' : 'translate-x-full'}
         `}
-        style={{ maxHeight: '70vh' }}
       >
-        {/* Handle */}
-        <div className="flex justify-center pt-3 pb-1">
-          <div className="w-8 h-1 rounded-full bg-border" />
-        </div>
-
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-2 border-b border-border">
-          <span className="text-[11px] text-text-muted uppercase tracking-widest font-medium">
-            Queue · {queue.length}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border shrink-0">
+          <span className="text-text-primary text-sm md:text-base font-semibold">
+            Queue
           </span>
           <div className="flex items-center gap-3">
-            {queue.length > 0 && (
+            {queue.length > 1 && (
               <button
-                onClick={() => { clearQueue(); toggleQueueSheet(); }}
-                className="flex items-center gap-1 text-text-muted hover:text-text-secondary text-xs transition-colors"
+                onClick={trimQueueToCurrent}
+                className="text-text-muted hover:text-text-secondary transition-colors"
+                title="Clear queue (keep current)"
               >
-                <Trash2 size={12} />
-                Clear
+                <Trash2 size={16} />
               </button>
             )}
             <button
               onClick={toggleQueueSheet}
               className="text-text-muted hover:text-text-primary transition-colors"
+              title="Close"
             >
               <X size={18} />
             </button>
@@ -57,9 +54,9 @@ export function QueueSheet() {
         </div>
 
         {/* Track list */}
-        <div className="overflow-y-auto" style={{ maxHeight: 'calc(70vh - 88px)' }}>
+        <div className="flex-1 overflow-y-auto">
           {queue.length === 0 ? (
-            <p className="text-center text-text-muted text-sm py-10">Queue is empty</p>
+            <p className="text-center text-text-muted text-xs md:text-sm py-10">Queue is empty</p>
           ) : (
             <TrackList />
           )}
