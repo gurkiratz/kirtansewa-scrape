@@ -13,7 +13,8 @@ import {
   Music2,
 } from "lucide-react";
 import { usePlayerStore } from "../store/playerStore";
-import { ProgressBar } from "./ProgressBar";
+// ProgressBar is kept as a fallback — swap WaveformBar ↔ ProgressBar to revert
+import { WaveformBar } from "./WaveformBar";
 import { VolumeControl } from "./VolumeControl";
 
 function TrackArt({
@@ -129,7 +130,7 @@ export function PlayerDock() {
         </div>
 
         {/* Progress */}
-        <ProgressBar variant="stacked" />
+        <WaveformBar variant="stacked" />
 
         {/* Transport row */}
         <div className="flex items-center justify-center gap-5">
@@ -163,7 +164,7 @@ export function PlayerDock() {
             {isPlaying ? (
               <Pause size={18} />
             ) : (
-              <Play size={18} className="translate-x-0.5" />
+              <Play size={18} className="mx-0.5" />
             )}
           </button>
 
@@ -221,7 +222,7 @@ export function PlayerDock() {
 
         {/* Center: scrubber + transport */}
         <div className="flex flex-col items-center gap-1 max-w-xl mx-auto w-full">
-          <ProgressBar variant="inline" />
+          <WaveformBar variant="inline" />
 
           <div className="flex items-center gap-4">
             <button
@@ -254,7 +255,7 @@ export function PlayerDock() {
               {isPlaying ? (
                 <Pause size={18} />
               ) : (
-                <Play size={18} className="translate-x-0.5" />
+                <Play size={18} className="mx-0.5" />
               )}
             </button>
 

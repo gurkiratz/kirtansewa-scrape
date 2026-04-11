@@ -1,11 +1,18 @@
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Play, Shuffle, Plus, Heart, MoreHorizontal } from 'lucide-react';
-import type { ArtistDetail as ArtistDetailType } from '../types';
-import { toTrack, type TrackMeta } from '../types';
-import { ArtistImage } from '../components/ArtistImage';
-import { usePlayerStore } from '../store/playerStore';
-import { useDataStore } from '../store/dataStore';
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  ArrowLeft,
+  Play,
+  Shuffle,
+  Plus,
+  Heart,
+  MoreHorizontal,
+} from "lucide-react";
+import type { ArtistDetail as ArtistDetailType } from "../types";
+import { toTrack, type TrackMeta } from "../types";
+import { ArtistImage } from "../components/ArtistImage";
+import { usePlayerStore } from "../store/playerStore";
+import { useDataStore } from "../store/dataStore";
 
 export function ArtistDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -34,10 +41,10 @@ export function ArtistDetail() {
       return;
     }
 
-    const filename = `${String(artistIndex + 1).padStart(2, '0')}-${slug}.json`;
+    const filename = `${String(artistIndex + 1).padStart(2, "0")}-${slug}.json`;
     fetch(`/artists/${filename}`)
       .then((r) => {
-        if (!r.ok) throw new Error('Not found');
+        if (!r.ok) throw new Error("Not found");
         return r.json();
       })
       .then((data: ArtistDetailType) => {
@@ -88,7 +95,10 @@ export function ArtistDetail() {
     return (
       <div className="flex-1 flex flex-col items-center justify-center gap-4">
         <p className="text-text-muted">Artist not found or not yet scraped.</p>
-        <button onClick={() => navigate('/')} className="text-gold text-sm hover:underline">
+        <button
+          onClick={() => navigate("/")}
+          className="text-gold text-sm hover:underline"
+        >
           ← Back to artists
         </button>
       </div>
@@ -100,12 +110,11 @@ export function ArtistDetail() {
   return (
     // Mobile: vertical scroll. Desktop: horizontal flex with independent panel scrolls.
     <div className="flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden">
-
       {/* ── LEFT / INFO PANEL ── */}
       <div className="w-full md:w-96 md:shrink-0 md:border-r border-border md:overflow-y-auto">
         <div className="p-5 md:p-6">
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             className="flex items-center gap-2 text-text-muted hover:text-text-primary text-sm transition-colors mb-5"
           >
             <ArrowLeft size={14} />
@@ -113,8 +122,8 @@ export function ArtistDetail() {
           </button>
 
           {/* Thumbnail on mobile, full-width square on desktop */}
-          <div className="flex items-center gap-4 mb-4 md:block">
-            <div className="w-16 h-16 md:w-full md:h-auto md:aspect-square shrink-0 rounded-sm overflow-hidden">
+          <div className="flex items-start gap-4 mb-4 md:block">
+            <div className="w-24 h-24 md:w-full md:h-auto md:aspect-square shrink-0 rounded-sm overflow-hidden">
               <ArtistImage
                 src={detail.image_url}
                 name={detail.name}
@@ -123,14 +132,22 @@ export function ArtistDetail() {
             </div>
             {/* Name + track count beside thumbnail on mobile */}
             <div className="md:hidden">
-              <h1 className="text-text-primary text-lg font-semibold leading-snug">{detail.name}</h1>
-              <p className="text-text-muted text-xs mt-0.5">{detail.tracks.length} tracks</p>
+              <h1 className="text-text-primary text-lg font-bold leading-snug">
+                {detail.name}
+              </h1>
+              <p className="text-text-primary/80 text-xs mt-0.5">
+                {detail.tracks.length} tracks
+              </p>
             </div>
           </div>
 
           {/* Name + track count below image on desktop */}
-          <h1 className="hidden md:block text-text-primary text-xl font-semibold mb-1">{detail.name}</h1>
-          <p className="hidden md:block text-text-muted text-xs mb-4">{detail.tracks.length} tracks</p>
+          <h1 className="hidden md:block text-text-primary text-xl font-semibold mb-1">
+            {detail.name}
+          </h1>
+          <p className="hidden md:block text-text-primary/80 text-xs mb-4">
+            {detail.tracks.length} tracks
+          </p>
 
           <div className="flex items-center gap-3 mb-5 mt-4 md:mt-0">
             <button
@@ -138,8 +155,9 @@ export function ArtistDetail() {
               className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-surface hover:bg-gold/85 transition-colors"
               title="Play all"
             >
-              <Play size={18} className="translate-x-0.5" />
+              <Play size={18} className="mx-0.5" />
             </button>
+
             <button
               onClick={handleShuffleAll}
               className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-surface hover:bg-gold/85 transition-colors"
@@ -177,20 +195,28 @@ export function ArtistDetail() {
             <div>
               {/* Mobile: 3-line clamp + toggle */}
               <div className="md:hidden">
-                <div className={`text-text-secondary text-[13px] leading-relaxed space-y-2 ${bioExpanded ? '' : 'line-clamp-3'}`}>
-                  {detail.body.map((para, i) => <p key={i}>{para}</p>)}
+                <div
+                  className={`text-text-secondary text-[13px] leading-relaxed space-y-2 ${
+                    bioExpanded ? "" : "line-clamp-3"
+                  }`}
+                >
+                  {detail.body.map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
                 </div>
                 <button
                   onClick={() => setBioExpanded((v) => !v)}
                   className="text-gold text-xs mt-2 hover:underline"
                 >
-                  {bioExpanded ? 'Read less' : 'Read more'}
+                  {bioExpanded ? "Read less" : "Read more"}
                 </button>
               </div>
 
               {/* Desktop: full text */}
               <div className="hidden md:block text-text-secondary text-[13px] leading-relaxed space-y-2">
-                {detail.body.map((para, i) => <p key={i}>{para}</p>)}
+                {detail.body.map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
               </div>
             </div>
           )}
@@ -198,11 +224,7 @@ export function ArtistDetail() {
 
         {/* On mobile, render tracks inline below the info */}
         <div className="md:hidden border-t border-border">
-          <TrackSection
-            detail={detail}
-            addToQueue={addToQueue}
-            meta={meta}
-          />
+          <TrackSection detail={detail} addToQueue={addToQueue} meta={meta} />
         </div>
       </div>
 
@@ -241,7 +263,9 @@ function TrackSection({
               key={i}
               className="flex items-center gap-3 px-5 h-14 border-b border-border/50 hover:bg-white/5 active:bg-white/5 transition-colors group"
             >
-              <span className="text-sm text-text-muted w-8 text-center shrink-0">{i + 1}</span>
+              <span className="text-sm text-text-muted w-8 text-center shrink-0">
+                {i + 1}
+              </span>
               <div className="flex-1 min-w-0">
                 <p className="text-[13px] text-text-primary font-medium truncate leading-tight">
                   {track.displayName}
