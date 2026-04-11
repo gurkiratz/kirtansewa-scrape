@@ -7,6 +7,7 @@ import {
   PanelLeftClose,
   PanelLeftOpen,
 } from "lucide-react";
+import { SiGithub } from "@icons-pack/react-simple-icons";
 
 const NAV_ITEMS = [
   { to: "/", label: "Home", icon: Home },
@@ -36,7 +37,11 @@ export function DesktopSidebar({ collapsed, onToggle }: Props) {
             to="/"
             className="text-text-primary text-sm font-semibold uppercase tracking-widest hover:text-gold transition-colors truncate"
           >
-            Kirtan Sewa
+            <img
+              src="/logo-2.svg"
+              alt="Kirtan Sewa Logo"
+              className="h-7 w-auto inline mr-2 align-middle"
+            />
           </Link>
         )}
         <button
@@ -102,7 +107,9 @@ export function DesktopSidebar({ collapsed, onToggle }: Props) {
           }`}
           title={collapsed ? "GitHub" : undefined}
         >
-          <ExternalLink size={18} className="shrink-0" />
+          {/* <ExternalLink size={18} className="shrink-0" /> */}
+          <SiGithub size={18} className="shrink-0" />
+
           {!collapsed && <span className="truncate">GitHub</span>}
         </a>
       </div>

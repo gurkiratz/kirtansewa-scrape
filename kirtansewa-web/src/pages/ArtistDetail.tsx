@@ -128,7 +128,9 @@ export function ArtistDetail() {
       {/* Blurred album art background glow — spans entire page */}
       {detail.image_url && (
         <div
-          className={`absolute inset-x-0 top-0 h-[40%] overflow-hidden pointer-events-none z-0 transition-opacity duration-1000 ease-out ${glowVisible ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-x-0 top-0 h-[40%] overflow-hidden pointer-events-none z-0 transition-opacity duration-1000 ease-out ${
+            glowVisible ? "opacity-100" : "opacity-0"
+          }`}
           aria-hidden="true"
         >
           <div
@@ -276,6 +278,30 @@ function TrackSection({
   detail: ArtistDetailType;
   meta?: TrackMeta;
 }) {
+  const clearQueue = usePlayerStore((s) => s.clearQueue);
+  const addToQueue = usePlayerStore((s) => s.addToQueue);
+  const playTrack = usePlayerStore((s) => s.playTrack);
+  const queue = usePlayerStore((s) => s.queue);
+  const currentIndex = usePlayerStore((s) => s.currentIndex);
+
+  const allTracks = detail.tracks.map((r) => toTrack(r, meta));
+
+  const isThisArtistQueue =
+    queue.length === allTracks.length &&
+    allTracks.every((t, i) => queue[i]?.url === t.url);
+
+  const handleTrackClick = (index: number) => {
+    if (isThisArtistQueue) {
+      playTrack(index);
+    } else {
+      clearQueue();
+      addToQueue(allTracks);
+      playTrack(index);
+    }
+  };
+
+  const activeIndex = isThisArtistQueue ? currentIndex : -1;
+
   return (
     <>
       {/* Column header */}
@@ -285,18 +311,34 @@ function TrackSection({
       </div>
 
       <div className="md:flex-1 md:overflow-y-auto">
-        {detail.tracks.map((raw, i) => {
-          const track = toTrack(raw, meta);
+        {allTracks.map((track, i) => {
+          const isActive = i === activeIndex;
           return (
-            <div
+            <button
               key={i}
-              className="flex items-center gap-3 px-5 h-14 border-b border-border/50 hover:bg-white/5 active:bg-white/5 transition-colors group"
+              onClick={() => handleTrackClick(i)}
+              className={`
+                w-full flex items-center gap-3 px-5 h-14 transition-colors group text-left cursor-pointer
+                ${
+                  isActive
+                    ? "bg-gold/15 border-l-4 border-l-gold"
+                    : "border-b border-border/50 hover:bg-white/5 active:bg-white/5"
+                }
+              `}
             >
-              <span className="text-sm text-text-primary/50 w-8 text-center shrink-0">
+              <span
+                className={`text-sm w-8 text-center shrink-0 ${
+                  isActive ? "text-gold" : "text-text-primary/50"
+                }`}
+              >
                 {i + 1}
               </span>
               <div className="flex-1 min-w-0">
-                <p className="text-[13px] text-text-primary font-medium truncate leading-tight">
+                <p
+                  className={`text-[13px] font-medium truncate leading-tight ${
+                    isActive ? "text-gold" : "text-text-primary"
+                  }`}
+                >
                   {track.displayName}
                 </p>
                 {track.artistLabel && (
@@ -305,7 +347,7 @@ function TrackSection({
                   </p>
                 )}
               </div>
-            </div>
+            </button>
           );
         })}
       </div>

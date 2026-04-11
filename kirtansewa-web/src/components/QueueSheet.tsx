@@ -1,6 +1,6 @@
-import { X, Trash2 } from 'lucide-react';
-import { usePlayerStore } from '../store/playerStore';
-import { TrackList } from './TrackList';
+import { X, Trash2 } from "lucide-react";
+import { usePlayerStore } from "../store/playerStore";
+import { TrackList } from "./TrackList";
 
 export function QueueSheet() {
   const isOpen = usePlayerStore((s) => s.isQueueSheetOpen);
@@ -21,11 +21,11 @@ export function QueueSheet() {
       {/* Sheet — slides from right */}
       <div
         className={`
-          fixed inset-y-0 right-0 z-50 bg-panel/80 backdrop-blur-xl border-l border-border
+          fixed inset-y-0 right-0 z-50 bg-gray-600/10 backdrop-blur-xl border-l border-border
           flex flex-col
           w-full md:w-[min(420px,35vw)]
           transition-transform duration-300 ease-out
-          ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+          ${isOpen ? "translate-x-0" : "translate-x-full"}
         `}
       >
         {/* Header */}
@@ -56,7 +56,9 @@ export function QueueSheet() {
         {/* Track list */}
         <div className="flex-1 overflow-y-auto">
           {queue.length === 0 ? (
-            <p className="text-center text-text-muted text-xs md:text-sm py-10">Queue is empty</p>
+            <p className="text-center text-text-muted text-xs md:text-sm py-10">
+              Queue is empty
+            </p>
           ) : (
             <TrackList />
           )}

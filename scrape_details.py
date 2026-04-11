@@ -1,3 +1,4 @@
+import argparse
 import requests
 from bs4 import BeautifulSoup
 import json
@@ -5,7 +6,6 @@ import re
 import shutil
 import time
 import os
-import sys
 from urllib.parse import urlparse
 
 
@@ -138,30 +138,39 @@ def load_artists():
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Scrape artist detail pages.")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("target", nargs="?", help="Single artist: 1-based index or URL")
+    group.add_argument("-s", "--start", type=int, metavar="N", help="Start index (inclusive)")
+    parser.add_argument("-e", "--end", type=int, metavar="N", help="End index (inclusive), used with --start")
+    args = parser.parse_args()
+
     artists = load_artists()
 
-    # Single-artist mode: pass URL or 1-based index as argument
-    single_index = None
-    single_url = None
-    if len(sys.argv) > 1:
-        arg = sys.argv[1]
-        if arg.isdigit():
-            single_index = int(arg)
+    # Resolve which indices to scrape
+    single_mode = False
+    if args.target is not None:
+        single_mode = True
+        if args.target.isdigit():
+            indices = {int(args.target)}
         else:
-            single_url = arg
+            # URL match
+            indices = {i + 1 for i, a in enumerate(artists) if a["url"] == args.target}
+    elif args.start is not None:
+        end = args.end if args.end is not None else len(artists)
+        indices = set(range(args.start, end + 1))
+    else:
+        indices = set(range(1, len(artists) + 1))
 
     for i, artist in enumerate(artists, start=1):
+        if i not in indices:
+            continue
+
         url = artist["url"]
-
-        if single_index and i != single_index:
-            continue
-        if single_url and url != single_url:
-            continue
-
         slug = get_slug(url)
         filename = os.path.join(OUTPUT_DIR, f"{i:02d}-{slug}.json")
 
-        if os.path.exists(filename) and not single_url:
+        if os.path.exists(filename) and not single_mode:
             print(f"Skipping {filename} (already exists)")
             continue
 
@@ -173,7 +182,7 @@ def main():
         except Exception as e:
             print(f"  Error: {e}")
 
-        if not single_url and not single_index:
+        if not single_mode:
             time.sleep(0.5)
 
 
