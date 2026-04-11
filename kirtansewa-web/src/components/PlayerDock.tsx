@@ -11,17 +11,25 @@ import {
   ListPlus,
   Cast,
   Music2,
-} from 'lucide-react';
-import { usePlayerStore } from '../store/playerStore';
-import { ProgressBar } from './ProgressBar';
-import { VolumeControl } from './VolumeControl';
+} from "lucide-react";
+import { usePlayerStore } from "../store/playerStore";
+import { ProgressBar } from "./ProgressBar";
+import { VolumeControl } from "./VolumeControl";
 
-function TrackArt({ src, label, size }: { src?: string | null; label?: string; size: number }) {
+function TrackArt({
+  src,
+  label,
+  size,
+}: {
+  src?: string | null;
+  label?: string;
+  size: number;
+}) {
   if (src) {
     return (
       <img
         src={src}
-        alt={label ?? ''}
+        alt={label ?? ""}
         className="w-full h-full object-cover rounded-sm"
       />
     );
@@ -48,7 +56,7 @@ export function PlayerDock() {
   const seek = usePlayerStore((s) => s.seek);
 
   const currentTrack = currentIndex >= 0 ? queue[currentIndex] : null;
-  const RepeatIcon = repeatMode === 'one' ? Repeat1 : Repeat;
+  const RepeatIcon = repeatMode === "one" ? Repeat1 : Repeat;
   const noTrack = !currentTrack;
 
   return (
@@ -58,7 +66,11 @@ export function PlayerDock() {
         {/* Top: art + meta + utility icons */}
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 shrink-0">
-            <TrackArt src={currentTrack?.coverUrl} label={currentTrack?.artistLabel} size={16} />
+            <TrackArt
+              src={currentTrack?.coverUrl}
+              label={currentTrack?.artistLabel}
+              size={16}
+            />
           </div>
           <div className="flex-1 min-w-0">
             {currentTrack ? (
@@ -103,7 +115,11 @@ export function PlayerDock() {
             </button>
             <button
               onClick={toggleQueueSheet}
-              className={`transition-colors shrink-0 ${queue.length > 0 ? 'text-text-secondary hover:text-text-primary' : 'text-text-muted opacity-50 cursor-not-allowed'}`}
+              className={`transition-colors shrink-0 ${
+                queue.length > 0
+                  ? "text-text-secondary hover:text-text-primary"
+                  : "text-text-muted opacity-50 cursor-not-allowed"
+              }`}
               disabled={queue.length === 0}
               title="Queue"
             >
@@ -119,7 +135,11 @@ export function PlayerDock() {
         <div className="flex items-center justify-center gap-5">
           <button
             onClick={toggleShuffle}
-            className={`transition-colors ${isShuffle ? 'text-gold' : 'text-text-muted hover:text-text-secondary'}`}
+            className={`transition-colors ${
+              isShuffle
+                ? "text-gold"
+                : "text-text-muted hover:text-text-secondary"
+            }`}
             title="Shuffle"
           >
             <Shuffle size={16} />
@@ -140,7 +160,11 @@ export function PlayerDock() {
             className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-surface hover:bg-gold/85 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
             title="Play/Pause"
           >
-            {isPlaying ? <Pause size={18} /> : <Play size={18} className="translate-x-0.5" />}
+            {isPlaying ? (
+              <Pause size={18} />
+            ) : (
+              <Play size={18} className="translate-x-0.5" />
+            )}
           </button>
 
           <button
@@ -154,7 +178,11 @@ export function PlayerDock() {
 
           <button
             onClick={cycleRepeat}
-            className={`transition-colors ${repeatMode !== 'none' ? 'text-gold' : 'text-text-muted hover:text-text-secondary'}`}
+            className={`transition-colors ${
+              repeatMode !== "none"
+                ? "text-gold"
+                : "text-text-muted hover:text-text-secondary"
+            }`}
             title={`Repeat: ${repeatMode}`}
           >
             <RepeatIcon size={16} />
@@ -167,7 +195,11 @@ export function PlayerDock() {
         {/* Left: art + track info */}
         <div className="flex items-center gap-3 min-w-0">
           <div className="w-12 h-12 shrink-0">
-            <TrackArt src={currentTrack?.coverUrl} label={currentTrack?.artistLabel} size={20} />
+            <TrackArt
+              src={currentTrack?.coverUrl}
+              label={currentTrack?.artistLabel}
+              size={20}
+            />
           </div>
           <div className="min-w-0">
             {currentTrack ? (
@@ -194,7 +226,11 @@ export function PlayerDock() {
           <div className="flex items-center gap-4">
             <button
               onClick={toggleShuffle}
-              className={`transition-colors ${isShuffle ? 'text-gold' : 'text-text-muted hover:text-text-secondary'}`}
+              className={`transition-colors ${
+                isShuffle
+                  ? "text-gold"
+                  : "text-text-muted hover:text-text-secondary"
+              }`}
               title="Shuffle"
             >
               <Shuffle size={15} />
@@ -215,7 +251,11 @@ export function PlayerDock() {
               className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-surface hover:bg-gold/85 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               title="Play/Pause (Space)"
             >
-              {isPlaying ? <Pause size={18} /> : <Play size={18} className="translate-x-0.5" />}
+              {isPlaying ? (
+                <Pause size={18} />
+              ) : (
+                <Play size={18} className="translate-x-0.5" />
+              )}
             </button>
 
             <button
@@ -229,7 +269,11 @@ export function PlayerDock() {
 
             <button
               onClick={cycleRepeat}
-              className={`transition-colors ${repeatMode !== 'none' ? 'text-gold' : 'text-text-muted hover:text-text-secondary'}`}
+              className={`transition-colors ${
+                repeatMode !== "none"
+                  ? "text-gold"
+                  : "text-text-muted hover:text-text-secondary"
+              }`}
               title={`Repeat: ${repeatMode}`}
             >
               <RepeatIcon size={15} />
@@ -246,7 +290,7 @@ export function PlayerDock() {
               aria-label="Favorite (not available yet)"
               title="Favorite"
             >
-              <Heart size={16} />
+              <Heart className="sm:size-4 md:size-5" />
             </button>
             <button
               type="button"
@@ -254,7 +298,7 @@ export function PlayerDock() {
               aria-label="Add to playlist (not available yet)"
               title="Add to playlist"
             >
-              <ListPlus size={16} />
+              <ListPlus className="sm:size-4 md:size-5" />
             </button>
             <button
               type="button"
@@ -262,11 +306,15 @@ export function PlayerDock() {
               aria-label="Cast (not available yet)"
               title="Cast"
             >
-              <Cast size={16} />
+              <Cast className="sm:size-4 md:size-5" />
             </button>
             <button
               onClick={toggleQueueSheet}
-              className={`transition-colors ${queue.length > 0 ? 'text-text-secondary hover:text-text-primary' : 'text-text-muted opacity-50 cursor-not-allowed'}`}
+              className={`transition-colors ${
+                queue.length > 0
+                  ? "text-text-secondary hover:text-text-primary"
+                  : "text-text-muted opacity-50 cursor-not-allowed"
+              }`}
               disabled={queue.length === 0}
               title="Queue"
             >

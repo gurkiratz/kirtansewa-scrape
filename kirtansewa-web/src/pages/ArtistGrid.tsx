@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Search } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDataStore } from '../store/dataStore';
 import { ArtistCard } from '../components/ArtistCard';
 import type { Artist } from '../types';
@@ -12,7 +11,8 @@ export function ArtistGrid() {
   const scrapedSlugs = useDataStore((s) => s.scrapedSlugs);
   const loading = useDataStore((s) => s.loading);
 
-  const [query, setQuery] = useState('');
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('q') ?? '';
   const [sortBy, setSortBy] = useState<SortKey>('name');
 
   const filtered = useMemo(() => {
@@ -38,18 +38,7 @@ export function ArtistGrid() {
   return (
     <div className="flex-1 overflow-y-auto">
       {/* Toolbar */}
-      <div className="sticky top-0 z-10 bg-surface border-b border-border px-4 md:px-5 py-3 flex items-center gap-3 md:gap-4">
-        <div className="relative flex-1 max-w-xs">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
-          <input
-            type="text"
-            placeholder="Search artists..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="w-full bg-card border border-border rounded-sm pl-8 pr-3 py-1.5 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-gold/50 transition-colors"
-          />
-        </div>
-
+      <div className="sticky top-0 z-10 bg-surface border-b border-border px-4 md:px-5 py-2.5 flex items-center gap-3 md:gap-4">
         <div className="hidden md:flex items-center gap-1 text-[11px] text-text-muted uppercase tracking-widest">
           <span>Sort:</span>
           {(['name', 'tracks'] as SortKey[]).map((key) => (
