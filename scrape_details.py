@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import json
+import re
+import shutil
 import time
 import os
 import sys
@@ -82,6 +84,42 @@ def scrape_artist(url):
 
 
 OUTPUT_DIR = "artists"
+MANIFEST_NAME = "manifest.json"
+_REPO_ROOT = os.path.dirname(os.path.abspath(__file__))
+_WEB_PUBLIC = os.path.join(_REPO_ROOT, "kirtansewa-web", "public")
+PUBLIC_ARTISTS_DIR = os.path.join(_WEB_PUBLIC, "artists")
+# Filenames from scrape: "{index}-{slug}.json" (index is decimal digits, slug may contain hyphens)
+_ARTIST_JSON_RE = re.compile(r"^(\d+)-(.+)\.json$")
+
+
+def update_manifest(output_dir):
+    """Rebuild manifest.json from all NN-slug.json files (tells the web app which slugs have detail JSON)."""
+    if not os.path.isdir(output_dir):
+        return
+    slugs = []
+    for name in os.listdir(output_dir):
+        if name == MANIFEST_NAME or not name.endswith(".json"):
+            continue
+        m = _ARTIST_JSON_RE.match(name)
+        if m:
+            slugs.append(m.group(2))
+    slugs.sort()
+    path = os.path.join(output_dir, MANIFEST_NAME)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(slugs, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    print(f"  Updated {path} ({len(slugs)} scraped)")
+
+
+def mirror_artist_to_public(src_path):
+    """Copy scraped JSON into Vite public/artists and rebuild manifest there."""
+    if not os.path.isdir(_WEB_PUBLIC):
+        return
+    os.makedirs(PUBLIC_ARTISTS_DIR, exist_ok=True)
+    dest = os.path.join(PUBLIC_ARTISTS_DIR, os.path.basename(src_path))
+    shutil.copy2(src_path, dest)
+    print(f"  Mirrored {dest}")
+    update_manifest(PUBLIC_ARTISTS_DIR)
 
 
 def save_artist_file(index, slug, data):
@@ -90,6 +128,8 @@ def save_artist_file(index, slug, data):
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     print(f"  Saved {filename}")
+    update_manifest(OUTPUT_DIR)
+    mirror_artist_to_public(filename)
 
 
 def load_artists():
