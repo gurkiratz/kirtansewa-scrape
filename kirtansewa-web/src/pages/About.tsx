@@ -1,5 +1,3 @@
-import { SiGithub } from "@icons-pack/react-simple-icons";
-
 export function About() {
   return (
     <div className="flex-1 overflow-y-auto">
@@ -10,8 +8,8 @@ export function About() {
         <div className="text-text-secondary text-sm leading-relaxed space-y-3">
           <p>
             Kirtan Sewa is a free, open-source web player for Puratan Sikh
-            devotional music (kirtan). Browse artists, listen to recordings, and
-            build your own queue, all without an account or subscription.
+            Kirtan. Browse artists, listen to rare recordings, and build your
+            own queue.
           </p>
           <p>
             This project does not host any audio files. All audio content is
