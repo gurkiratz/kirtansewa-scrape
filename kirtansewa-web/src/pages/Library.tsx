@@ -1,16 +1,15 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Heart, ListMusic, Play, Trash2, ChevronRight, Music2, Plus } from 'lucide-react';
-import { useLibraryStore, type Playlist } from '../store/libraryStore';
-import { useDataStore } from '../store/dataStore';
-import { usePlayerStore } from '../store/playerStore';
-import { ArtistCard } from '../components/ArtistCard';
-import type { Track } from '../types';
+import { useState } from "react";
+import { Heart, ListMusic, Play, Trash2, Music2, Plus } from "lucide-react";
+import { useLibraryStore, type Playlist } from "../store/libraryStore";
+import { useDataStore } from "../store/dataStore";
+import { usePlayerStore } from "../store/playerStore";
+import { ArtistCard } from "../components/ArtistCard";
+import type { Track } from "../types";
 
-type FavTab = 'artists' | 'liked';
+type FavTab = "artists" | "liked";
 
 export function LibraryPage() {
-  const [favTab, setFavTab] = useState<FavTab>('artists');
+  const [favTab, setFavTab] = useState<FavTab>("artists");
   const playlists = useLibraryStore((s) => s.playlists);
   const createPlaylist = useLibraryStore((s) => s.createPlaylist);
   const deletePlaylist = useLibraryStore((s) => s.deletePlaylist);
@@ -18,20 +17,22 @@ export function LibraryPage() {
   const likedTracks = useLibraryStore((s) => s.likedTracks);
 
   const [showNewPlaylist, setShowNewPlaylist] = useState(false);
-  const [newName, setNewName] = useState('');
+  const [newName, setNewName] = useState("");
 
   const handleCreatePlaylist = () => {
     const trimmed = newName.trim();
     if (!trimmed) return;
     createPlaylist(trimmed);
-    setNewName('');
+    setNewName("");
     setShowNewPlaylist(false);
   };
 
   return (
     <div className="flex-1 flex flex-col overflow-y-auto">
       <div className="px-5 pt-5 pb-0">
-        <h1 className="text-text-primary text-xl font-semibold mb-5">Your Library</h1>
+        <h1 className="text-text-primary text-xl font-semibold mb-5">
+          Your Library
+        </h1>
       </div>
 
       {/* ── PLAYLISTS SECTION ── */}
@@ -56,10 +57,10 @@ export function LibraryPage() {
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') handleCreatePlaylist();
-                if (e.key === 'Escape') {
+                if (e.key === "Enter") handleCreatePlaylist();
+                if (e.key === "Escape") {
                   setShowNewPlaylist(false);
-                  setNewName('');
+                  setNewName("");
                 }
               }}
               placeholder="Playlist name"
@@ -85,7 +86,11 @@ export function LibraryPage() {
         ) : (
           <div className="flex flex-col gap-1">
             {playlists.map((pl) => (
-              <PlaylistRow key={pl.id} playlist={pl} onDelete={() => deletePlaylist(pl.id)} />
+              <PlaylistRow
+                key={pl.id}
+                playlist={pl}
+                onDelete={() => deletePlaylist(pl.id)}
+              />
             ))}
           </div>
         )}
@@ -102,30 +107,32 @@ export function LibraryPage() {
 
         <div className="flex gap-2 mb-4">
           <button
-            onClick={() => setFavTab('artists')}
+            onClick={() => setFavTab("artists")}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              favTab === 'artists'
-                ? 'bg-gold text-surface'
-                : 'bg-white/8 text-text-secondary hover:bg-white/12'
+              favTab === "artists"
+                ? "bg-gold text-surface"
+                : "bg-white/8 text-text-secondary hover:bg-white/12"
             }`}
           >
-            Artists{favoriteArtists.length > 0 ? ` (${favoriteArtists.length})` : ''}
+            Artists
+            {favoriteArtists.length > 0 ? ` (${favoriteArtists.length})` : ""}
           </button>
           <button
-            onClick={() => setFavTab('liked')}
+            onClick={() => setFavTab("liked")}
             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              favTab === 'liked'
-                ? 'bg-gold text-surface'
-                : 'bg-white/8 text-text-secondary hover:bg-white/12'
+              favTab === "liked"
+                ? "bg-gold text-surface"
+                : "bg-white/8 text-text-secondary hover:bg-white/12"
             }`}
           >
-            Liked Tracks{likedTracks.length > 0 ? ` (${likedTracks.length})` : ''}
+            Liked Tracks
+            {likedTracks.length > 0 ? ` (${likedTracks.length})` : ""}
           </button>
         </div>
 
         <div className="flex-1 pb-5">
-          {favTab === 'artists' && <FavoriteArtists />}
-          {favTab === 'liked' && <LikedTracks />}
+          {favTab === "artists" && <FavoriteArtists />}
+          {favTab === "liked" && <LikedTracks />}
         </div>
       </section>
     </div>
@@ -146,7 +153,8 @@ function FavoriteArtists() {
       <div className="flex flex-col items-center justify-center gap-3 py-12">
         <Heart size={28} className="text-text-muted" />
         <p className="text-text-muted text-sm text-center max-w-xs">
-          No favorite artists yet. Visit an artist page and tap the heart to add them here.
+          No favorite artists yet. Visit an artist page and tap the heart to add
+          them here.
         </p>
       </div>
     );
@@ -181,7 +189,8 @@ function LikedTracks() {
       <div className="flex flex-col items-center justify-center gap-3 py-12">
         <Heart size={28} className="text-text-muted" />
         <p className="text-text-muted text-sm text-center max-w-xs">
-          No liked tracks yet. Use the heart button on tracks in the player or queue to like them.
+          No liked tracks yet. Use the heart button on tracks in the player or
+          queue to like them.
         </p>
       </div>
     );
@@ -255,21 +264,28 @@ function LikedTrackRow({
     <div
       className={`flex items-center gap-3 px-3 h-14 transition-colors group cursor-pointer ${
         isActive
-          ? 'bg-gold/15 border-l-4 border-l-gold'
-          : 'border-b border-border/50 hover:bg-white/5'
+          ? "bg-gold/15 border-l-4 border-l-gold"
+          : "border-b border-border/50 hover:bg-white/5"
       }`}
     >
       <span
         className={`text-sm w-7 text-center shrink-0 ${
-          isActive ? 'text-gold' : 'text-text-muted'
+          isActive ? "text-gold" : "text-text-muted"
         }`}
       >
         {index + 1}
       </span>
 
-      <button onClick={onClick} className="w-9 h-9 shrink-0 rounded-sm overflow-hidden">
+      <button
+        onClick={onClick}
+        className="w-9 h-9 shrink-0 rounded-sm overflow-hidden"
+      >
         {track.coverUrl ? (
-          <img src={track.coverUrl} alt="" className="w-full h-full object-cover" />
+          <img
+            src={track.coverUrl}
+            alt=""
+            className="w-full h-full object-cover"
+          />
         ) : (
           <div className="w-full h-full bg-card flex items-center justify-center text-text-muted">
             <Music2 size={14} />
@@ -280,7 +296,7 @@ function LikedTrackRow({
       <button onClick={onClick} className="flex-1 min-w-0 text-left">
         <p
           className={`text-[13px] font-medium truncate leading-tight ${
-            isActive ? 'text-gold' : 'text-text-primary'
+            isActive ? "text-gold" : "text-text-primary"
           }`}
         >
           {track.displayName}
@@ -335,8 +351,12 @@ function PlaylistRow({
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="text-text-primary text-sm font-medium truncate">{playlist.name}</p>
-        <p className="text-text-muted text-xs mt-0.5">{playlist.tracks.length} tracks</p>
+        <p className="text-text-primary text-sm font-medium truncate">
+          {playlist.name}
+        </p>
+        <p className="text-text-muted text-xs mt-0.5">
+          {playlist.tracks.length} tracks
+        </p>
       </div>
 
       <div className="flex items-center gap-2 shrink-0">
