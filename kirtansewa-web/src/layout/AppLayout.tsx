@@ -5,6 +5,7 @@ import { usePlayerStore } from '../store/playerStore';
 import { useKeyboard } from '../hooks/useKeyboard';
 import { PlayerDock } from '../components/PlayerDock';
 import { QueueSheet } from '../components/QueueSheet';
+import { AddToPlaylistModal } from '../components/AddToPlaylistModal';
 import { DesktopSidebar } from './DesktopSidebar';
 import { DesktopTopBar } from './DesktopTopBar';
 import { MobileHeader } from './MobileHeader';
@@ -69,6 +70,8 @@ export function AppLayout() {
         <PlayerDock />
         <QueueSheet />
       </div>
+
+      <AddToPlaylistModal />
     </div>
   );
 }

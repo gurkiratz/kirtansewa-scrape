@@ -13,6 +13,7 @@ import { toTrack, type TrackMeta } from "../types";
 import { ArtistImage } from "../components/ArtistImage";
 import { usePlayerStore } from "../store/playerStore";
 import { useDataStore } from "../store/dataStore";
+import { useLibraryStore } from "../store/libraryStore";
 
 export function ArtistDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -22,6 +23,9 @@ export function ArtistDetail() {
   const clearQueue = usePlayerStore((s) => s.clearQueue);
   const playTrack = usePlayerStore((s) => s.playTrack);
   const toggleShuffle = usePlayerStore((s) => s.toggleShuffle);
+  const favoriteArtists = useLibraryStore((s) => s.favoriteArtists);
+  const toggleFavoriteArtist = useLibraryStore((s) => s.toggleFavoriteArtist);
+  const openPlaylistModal = useLibraryStore((s) => s.openPlaylistModal);
 
   const [detail, setDetail] = useState<ArtistDetailType | null>(null);
   const [loading, setLoading] = useState(true);
@@ -80,6 +84,13 @@ export function ArtistDetail() {
     if (!detail) return;
     addToQueue(detail.tracks.map((r) => toTrack(r, meta)));
   };
+
+  const handleAddAllToPlaylist = () => {
+    if (!detail) return;
+    openPlaylistModal(detail.tracks.map((r) => toTrack(r, meta)));
+  };
+
+  const isFavorite = slug ? favoriteArtists.includes(slug) : false;
 
   const handlePlayAll = () => {
     if (!detail) return;
@@ -201,25 +212,28 @@ export function ArtistDetail() {
               <Shuffle size={17} />
             </button>
             <button
-              onClick={handleAddAll}
+              onClick={handleAddAllToPlaylist}
               className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:border-text-secondary transition-colors"
-              title="Add to queue"
+              title="Add all to playlist"
             >
               <Plus size={18} />
             </button>
             <button
-              type="button"
-              className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:border-text-secondary transition-colors"
-              aria-label="Favorite (not available yet)"
-              title="Favorite"
+              onClick={() => slug && toggleFavoriteArtist(slug)}
+              className={`w-9 h-9 rounded-full border flex items-center justify-center transition-colors ${
+                isFavorite
+                  ? "border-gold bg-gold/15 text-gold"
+                  : "border-border text-text-secondary hover:text-text-primary hover:border-text-secondary"
+              }`}
+              aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+              title={isFavorite ? "Remove from favorites" : "Add to favorites"}
             >
-              <Heart size={16} />
+              <Heart size={16} className={isFavorite ? "fill-current" : ""} />
             </button>
             <button
-              type="button"
+              onClick={handleAddAll}
               className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:border-text-secondary transition-colors"
-              aria-label="More options (not available yet)"
-              title="More options"
+              title="Add all to queue"
             >
               <MoreHorizontal size={16} />
             </button>

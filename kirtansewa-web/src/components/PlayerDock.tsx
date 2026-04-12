@@ -14,6 +14,7 @@ import {
   Music2,
 } from "lucide-react";
 import { usePlayerStore } from "../store/playerStore";
+import { useLibraryStore } from "../store/libraryStore";
 // ProgressBar is kept as a fallback — swap WaveformBar ↔ ProgressBar to revert
 import { WaveformBar } from "./WaveformBar";
 import { VolumeControl } from "./VolumeControl";
@@ -57,12 +58,31 @@ export function PlayerDock() {
   const toggleQueueSheet = usePlayerStore((s) => s.toggleQueueSheet);
 
   const initFromPersistedState = usePlayerStore((s) => s.initFromPersistedState);
+  const openPlaylistModal = useLibraryStore((s) => s.openPlaylistModal);
 
   useEffect(() => {
     initFromPersistedState();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const currentTrack = currentIndex >= 0 ? queue[currentIndex] : null;
+
+  const toggleLikedTrack = useLibraryStore((s) => s.toggleLikedTrack);
+  const likedTracks = useLibraryStore((s) => s.likedTracks);
+
+  const handleAddToPlaylist = () => {
+    if (!currentTrack) return;
+    openPlaylistModal([currentTrack]);
+  };
+
+  const handleToggleLike = () => {
+    if (!currentTrack) return;
+    toggleLikedTrack(currentTrack);
+  };
+
+  const isLiked = currentTrack
+    ? likedTracks.some((t) => t.url === currentTrack.url)
+    : false;
+
   const RepeatIcon = repeatMode === "one" ? Repeat1 : Repeat;
   const noTrack = !currentTrack;
 
@@ -98,16 +118,24 @@ export function PlayerDock() {
           <div className="flex items-center gap-3 shrink-0">
             <button
               type="button"
-              className="text-text-muted hover:text-text-secondary transition-colors"
-              aria-label="Favorite (not available yet)"
-              title="Favorite"
+              onClick={handleToggleLike}
+              disabled={!currentTrack}
+              className={`transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
+                isLiked
+                  ? "text-gold"
+                  : "text-text-muted hover:text-text-secondary"
+              }`}
+              aria-label={isLiked ? "Unlike track" : "Like track"}
+              title={isLiked ? "Unlike" : "Like"}
             >
-              <Heart size={16} />
+              <Heart size={16} className={isLiked ? "fill-current" : ""} />
             </button>
             <button
               type="button"
-              className="text-text-muted hover:text-text-secondary transition-colors"
-              aria-label="Add to playlist (not available yet)"
+              onClick={handleAddToPlaylist}
+              disabled={!currentTrack}
+              className="text-text-muted hover:text-text-secondary disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              aria-label="Add to playlist"
               title="Add to playlist"
             >
               <ListPlus size={16} />
@@ -293,16 +321,24 @@ export function PlayerDock() {
           <div className="flex items-center gap-3">
             <button
               type="button"
-              className="text-text-muted hover:text-text-secondary transition-colors"
-              aria-label="Favorite (not available yet)"
-              title="Favorite"
+              onClick={handleToggleLike}
+              disabled={!currentTrack}
+              className={`transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
+                isLiked
+                  ? "text-gold"
+                  : "text-text-muted hover:text-text-secondary"
+              }`}
+              aria-label={isLiked ? "Unlike track" : "Like track"}
+              title={isLiked ? "Unlike" : "Like"}
             >
-              <Heart className="sm:size-4 md:size-5" />
+              <Heart className={`sm:size-4 md:size-5 ${isLiked ? "fill-current" : ""}`} />
             </button>
             <button
               type="button"
-              className="text-text-muted hover:text-text-secondary transition-colors"
-              aria-label="Add to playlist (not available yet)"
+              onClick={handleAddToPlaylist}
+              disabled={!currentTrack}
+              className="text-text-muted hover:text-text-secondary disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+              aria-label="Add to playlist"
               title="Add to playlist"
             >
               <ListPlus className="sm:size-4 md:size-5" />
