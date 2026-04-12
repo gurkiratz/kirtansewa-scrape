@@ -96,19 +96,27 @@ def update_manifest(output_dir):
     """Rebuild manifest.json from all NN-slug.json files (tells the web app which slugs have detail JSON)."""
     if not os.path.isdir(output_dir):
         return
-    slugs = []
+    entries = []
     for name in os.listdir(output_dir):
         if name == MANIFEST_NAME or not name.endswith(".json"):
             continue
         m = _ARTIST_JSON_RE.match(name)
         if m:
-            slugs.append(m.group(2))
-    slugs.sort()
+            slug = m.group(2)
+            file_path = os.path.join(output_dir, name)
+            with open(file_path, encoding="utf-8") as f:
+                data = json.load(f)
+            entries.append({
+                "slug": slug,
+                "image_url": data.get("image_url"),
+                "track_count": len(data.get("tracks", [])),
+            })
+    entries.sort(key=lambda e: e["slug"])
     path = os.path.join(output_dir, MANIFEST_NAME)
     with open(path, "w", encoding="utf-8") as f:
-        json.dump(slugs, f, ensure_ascii=False, indent=2)
+        json.dump(entries, f, ensure_ascii=False, indent=2)
         f.write("\n")
-    print(f"  Updated {path} ({len(slugs)} scraped)")
+    print(f"  Updated {path} ({len(entries)} scraped)")
 
 
 def mirror_artist_to_public(src_path):

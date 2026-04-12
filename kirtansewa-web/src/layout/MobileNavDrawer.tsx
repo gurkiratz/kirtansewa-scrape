@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { X, Home, Library, Info, ExternalLink } from "lucide-react";
+import { SiGithub } from "@icons-pack/react-simple-icons";
 
 const GITHUB_URL = "https://github.com/gurkiratz/kirtansewa-scrape";
 
@@ -110,7 +111,7 @@ export function MobileNavDrawer({ open, onClose }: Props) {
             rel="noreferrer"
             className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors"
           >
-            <ExternalLink size={18} className="shrink-0" />
+            <SiGithub size={18} className="shrink-0" />
             <span>GitHub</span>
           </a>
         </div>

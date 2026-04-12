@@ -9,6 +9,8 @@ type SortKey = 'name' | 'tracks';
 export function ArtistGrid() {
   const artists = useDataStore((s) => s.artists);
   const scrapedSlugs = useDataStore((s) => s.scrapedSlugs);
+  const imageUrls = useDataStore((s) => s.imageUrls);
+  const trackCounts = useDataStore((s) => s.trackCounts);
   const loading = useDataStore((s) => s.loading);
 
   const [searchParams] = useSearchParams();
@@ -71,6 +73,8 @@ export function ArtistGrid() {
             key={artist.slug}
             artist={artist}
             enabled={scrapedSlugs.has(artist.slug)}
+            imageUrl={imageUrls.get(artist.slug)}
+            trackCount={trackCounts.get(artist.slug)}
           />
         ))}
         {filtered.length === 0 && (
