@@ -4,6 +4,7 @@ import { useLibraryStore, type Playlist } from "../store/libraryStore";
 import { useDataStore } from "../store/dataStore";
 import { usePlayerStore } from "../store/playerStore";
 import { ArtistCard } from "../components/ArtistCard";
+import { ConfirmModal } from "../components/ConfirmModal";
 import type { Track } from "../types";
 
 type FavTab = "artists" | "liked";
@@ -18,6 +19,7 @@ export function LibraryPage() {
 
   const [showNewPlaylist, setShowNewPlaylist] = useState(false);
   const [newName, setNewName] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState<Playlist | null>(null);
 
   const handleCreatePlaylist = () => {
     const trimmed = newName.trim();
@@ -89,7 +91,7 @@ export function LibraryPage() {
               <PlaylistRow
                 key={pl.id}
                 playlist={pl}
-                onDelete={() => deletePlaylist(pl.id)}
+                onDelete={() => setDeleteTarget(pl)}
               />
             ))}
           </div>
@@ -135,6 +137,20 @@ export function LibraryPage() {
           {favTab === "liked" && <LikedTracks />}
         </div>
       </section>
+
+      <ConfirmModal
+        open={!!deleteTarget}
+        title="Delete Playlist"
+        message={`Are you sure you want to delete "${
+          deleteTarget?.name ?? ""
+        }"? This cannot be undone.`}
+        confirmLabel="Delete"
+        onConfirm={() => {
+          if (deleteTarget) deletePlaylist(deleteTarget.id);
+          setDeleteTarget(null);
+        }}
+        onCancel={() => setDeleteTarget(null)}
+      />
     </div>
   );
 }
@@ -363,7 +379,7 @@ function PlaylistRow({
         <button
           onClick={handlePlay}
           disabled={playlist.tracks.length === 0}
-          className="w-8 h-8 rounded-full bg-gold/80 flex items-center justify-center text-surface hover:bg-gold disabled:opacity-30 disabled:cursor-not-allowed transition-colors opacity-0 group-hover:opacity-100"
+          className="w-8 h-8 rounded-full bg-gold/80 flex items-center justify-center text-surface hover:bg-gold disabled:opacity-30 disabled:cursor-not-allowed transition-colors "
           title="Play playlist"
         >
           <Play size={14} className="ml-0.5" />
@@ -373,7 +389,7 @@ function PlaylistRow({
             e.stopPropagation();
             onDelete();
           }}
-          className="text-text-muted hover:text-red-400 transition-colors p-1.5 opacity-0 group-hover:opacity-100"
+          className="text-text-muted hover:text-red-400 transition-colors p-1.5 "
           title="Delete playlist"
         >
           <Trash2 size={14} />

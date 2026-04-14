@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { X, Trash2, Plus, Check } from 'lucide-react';
 import { useLibraryStore } from '../store/libraryStore';
+import { ConfirmModal } from './ConfirmModal';
 
 export function AddToPlaylistModal() {
   const open = useLibraryStore((s) => s.playlistModalOpen);
@@ -14,6 +15,7 @@ export function AddToPlaylistModal() {
   const [newName, setNewName] = useState('');
   const [showNewInput, setShowNewInput] = useState(false);
   const [addedTo, setAddedTo] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<{ id: string; name: string } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
 
@@ -28,6 +30,7 @@ export function AddToPlaylistModal() {
       setNewName('');
       setShowNewInput(false);
       setAddedTo(null);
+      setDeleteTarget(null);
     }
   }, [open]);
 
@@ -147,7 +150,7 @@ export function AddToPlaylistModal() {
                     )}
                   </button>
                   <button
-                    onClick={() => deletePlaylist(pl.id)}
+                    onClick={() => setDeleteTarget({ id: pl.id, name: pl.name })}
                     className="text-text-muted hover:text-red-400 transition-colors p-1.5 opacity-0 group-hover:opacity-100 shrink-0"
                     title="Delete playlist"
                   >
@@ -169,6 +172,18 @@ export function AddToPlaylistModal() {
           </button>
         </div>
       </div>
+
+      <ConfirmModal
+        open={!!deleteTarget}
+        title="Delete Playlist"
+        message={`Are you sure you want to delete "${deleteTarget?.name ?? ''}"? This cannot be undone.`}
+        confirmLabel="Delete"
+        onConfirm={() => {
+          if (deleteTarget) deletePlaylist(deleteTarget.id);
+          setDeleteTarget(null);
+        }}
+        onCancel={() => setDeleteTarget(null)}
+      />
     </div>
   );
 }
