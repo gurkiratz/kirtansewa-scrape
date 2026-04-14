@@ -1,10 +1,12 @@
 import { useState, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { ArrowUpDown } from 'lucide-react';
 import { useDataStore } from '../store/dataStore';
+import { useLibraryStore } from '../store/libraryStore';
 import { ArtistCard } from '../components/ArtistCard';
 import type { Artist } from '../types';
 
-type SortKey = 'name' | 'tracks';
+type SortKey = 'name' | 'favorites';
 
 export function ArtistGrid() {
   const artists = useDataStore((s) => s.artists);
@@ -12,22 +14,35 @@ export function ArtistGrid() {
   const imageUrls = useDataStore((s) => s.imageUrls);
   const trackCounts = useDataStore((s) => s.trackCounts);
   const loading = useDataStore((s) => s.loading);
+  const favoriteArtists = useLibraryStore((s) => s.favoriteArtists);
 
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') ?? '';
-  const [sortBy, setSortBy] = useState<SortKey>('name');
+  const [sortBy, setSortBy] = useState<SortKey>(
+    () => (localStorage.getItem('artist-sort') as SortKey) || 'name',
+  );
+
+  const toggleSort = () =>
+    setSortBy((prev) => {
+      const next = prev === 'name' ? 'favorites' : 'name';
+      localStorage.setItem('artist-sort', next);
+      return next;
+    });
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase();
+    const favSet = new Set(favoriteArtists);
     return artists
       .filter((a) => a.name.toLowerCase().includes(q))
       .sort((a, b) => {
-        if (sortBy === 'name') return a.name.localeCompare(b.name);
-        const aEnabled = scrapedSlugs.has(a.slug) ? 1 : 0;
-        const bEnabled = scrapedSlugs.has(b.slug) ? 1 : 0;
-        return bEnabled - aEnabled;
+        if (sortBy === 'favorites') {
+          const aFav = favSet.has(a.slug) ? 1 : 0;
+          const bFav = favSet.has(b.slug) ? 1 : 0;
+          if (aFav !== bFav) return bFav - aFav;
+        }
+        return a.name.localeCompare(b.name);
       });
-  }, [artists, scrapedSlugs, query, sortBy]);
+  }, [artists, favoriteArtists, query, sortBy]);
 
   if (loading) {
     return (
@@ -41,20 +56,13 @@ export function ArtistGrid() {
     <div className="flex-1 overflow-y-auto">
       {/* Toolbar */}
       <div className="sticky top-0 z-10 bg-surface border-b border-border px-4 md:px-5 py-2.5 flex items-center gap-3 md:gap-4">
-        <div className="hidden md:flex items-center gap-1 text-[11px] text-text-muted uppercase tracking-widest">
-          <span>Sort:</span>
-          {(['name', 'tracks'] as SortKey[]).map((key) => (
-            <button
-              key={key}
-              onClick={() => setSortBy(key)}
-              className={`px-2 py-1 rounded-sm transition-colors ${
-                sortBy === key ? 'text-gold' : 'hover:text-text-secondary'
-              }`}
-            >
-              {key}
-            </button>
-          ))}
-        </div>
+        <button
+          onClick={toggleSort}
+          className="flex items-center gap-1.5 text-xs text-gold hover:text-gold/80 transition-colors"
+        >
+          <ArrowUpDown size={14} />
+          <span>{sortBy === 'name' ? 'A\u2013Z' : 'Favorites'}</span>
+        </button>
 
         <span className="text-text-muted text-xs ml-auto shrink-0">
           {filtered.length} artists
