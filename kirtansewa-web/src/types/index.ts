@@ -23,6 +23,7 @@ export interface Track {
   url: string;
   artistLabel?: string;
   coverUrl?: string | null;
+  artistSlug?: string;
 }
 
 export function stripArtistPrefix(name: string): string {
@@ -35,6 +36,7 @@ export function stripArtistPrefix(name: string): string {
 export interface TrackMeta {
   artistLabel?: string;
   coverUrl?: string | null;
+  artistSlug?: string;
 }
 
 export function toTrack(raw: RawTrack, meta?: TrackMeta): Track {
@@ -44,5 +46,6 @@ export function toTrack(raw: RawTrack, meta?: TrackMeta): Track {
     url: raw.url,
     artistLabel: meta?.artistLabel,
     coverUrl: meta?.coverUrl,
+    artistSlug: meta?.artistSlug,
   };
 }

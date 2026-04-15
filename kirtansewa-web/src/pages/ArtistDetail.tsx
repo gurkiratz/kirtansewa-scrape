@@ -77,7 +77,7 @@ export function ArtistDetail() {
   }, [slug, artists]);
 
   const meta: TrackMeta | undefined = detail
-    ? { artistLabel: detail.name, coverUrl: detail.image_url }
+    ? { artistLabel: detail.name, coverUrl: detail.image_url, artistSlug: slug }
     : undefined;
 
   const handleAddAll = () => {

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Play,
   Pause,
@@ -57,6 +58,7 @@ export function PlayerDock() {
   const cycleRepeat = usePlayerStore((s) => s.cycleRepeat);
   const toggleQueueSheet = usePlayerStore((s) => s.toggleQueueSheet);
 
+  const navigate = useNavigate();
   const initFromPersistedState = usePlayerStore((s) => s.initFromPersistedState);
   const openPlaylistModal = useLibraryStore((s) => s.openPlaylistModal);
 
@@ -92,29 +94,35 @@ export function PlayerDock() {
       <div className="md:hidden flex flex-col px-4 pt-3 pb-4 gap-2.5">
         {/* Top: art + meta + utility icons */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 shrink-0">
-            <TrackArt
-              src={currentTrack?.coverUrl}
-              label={currentTrack?.artistLabel}
-              size={16}
-            />
-          </div>
-          <div className="flex-1 min-w-0">
-            {currentTrack ? (
-              <>
-                <p className="text-text-primary text-sm font-medium truncate leading-tight">
-                  {currentTrack.displayName}
-                </p>
-                {currentTrack.artistLabel && (
-                  <p className="text-text-secondary text-xs truncate leading-tight">
-                    {currentTrack.artistLabel}
+          <button
+            onClick={() => currentTrack?.artistSlug && navigate(`/artist/${currentTrack.artistSlug}`)}
+            className="flex items-center gap-3 flex-1 min-w-0 text-left focus:outline-none"
+            disabled={!currentTrack?.artistSlug}
+          >
+            <div className="w-10 h-10 shrink-0">
+              <TrackArt
+                src={currentTrack?.coverUrl}
+                label={currentTrack?.artistLabel}
+                size={16}
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              {currentTrack ? (
+                <>
+                  <p className="text-text-primary text-sm font-medium truncate leading-tight">
+                    {currentTrack.displayName}
                   </p>
-                )}
-              </>
-            ) : (
-              <p className="text-text-muted text-sm">No track selected</p>
-            )}
-          </div>
+                  {currentTrack.artistLabel && (
+                    <p className="text-text-secondary text-xs truncate leading-tight">
+                      {currentTrack.artistLabel}
+                    </p>
+                  )}
+                </>
+              ) : (
+                <p className="text-text-muted text-sm">No track selected</p>
+              )}
+            </div>
+          </button>
           <div className="flex items-center gap-3 shrink-0">
             <button
               type="button"
@@ -228,7 +236,11 @@ export function PlayerDock() {
       {/* ── DESKTOP PLAYER ── */}
       <div className="hidden md:grid grid-cols-[minmax(200px,1fr)_2fr_minmax(200px,1fr)] items-center gap-4 px-6 h-[88px]">
         {/* Left: art + track info */}
-        <div className="flex items-center gap-3 min-w-0">
+        <button
+          onClick={() => currentTrack?.artistSlug && navigate(`/artist/${currentTrack.artistSlug}`)}
+          className="flex items-center gap-3 min-w-0 text-left focus:outline-none"
+          disabled={!currentTrack?.artistSlug}
+        >
           <div className="w-12 h-12 shrink-0">
             <TrackArt
               src={currentTrack?.coverUrl}
@@ -243,7 +255,7 @@ export function PlayerDock() {
                   {currentTrack.displayName}
                 </p>
                 {currentTrack.artistLabel && (
-                  <p className="text-text-secondary text-[11px] truncate leading-tight mt-0.5">
+                  <p className="text-text-secondary text-[11px] truncate leading-tight mt-0.5 hover:underline">
                     {currentTrack.artistLabel}
                   </p>
                 )}
@@ -252,7 +264,7 @@ export function PlayerDock() {
               <p className="text-text-muted text-[13px]">No track selected</p>
             )}
           </div>
-        </div>
+        </button>
 
         {/* Center: scrubber + transport */}
         <div className="flex flex-col items-center gap-1 max-w-xl mx-auto w-full">
