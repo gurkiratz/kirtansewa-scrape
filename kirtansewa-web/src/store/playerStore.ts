@@ -22,6 +22,7 @@ interface PlayerState {
 interface PlayerActions {
   addToQueue: (tracks: Track[]) => void;
   clearQueue: () => void;
+  replaceQueue: (tracks: Track[]) => void;
   trimQueueToCurrent: () => void;
   removeFromQueue: (index: number) => void;
   playTrack: (index: number) => void;
@@ -90,6 +91,13 @@ export const usePlayerStore = create<PlayerStore>()(
         }
         _soundId = null;
         set({ queue: [], currentIndex: -1, isPlaying: false, seek: 0, seekSeconds: 0, duration: 0 });
+      },
+
+      replaceQueue: (tracks) => {
+        const { queue, currentIndex } = get();
+        const currentUrl = currentIndex >= 0 ? queue[currentIndex]?.url : null;
+        const newIndex = currentUrl ? tracks.findIndex((t) => t.url === currentUrl) : -1;
+        set({ queue: tracks, currentIndex: newIndex });
       },
 
       trimQueueToCurrent: () => {

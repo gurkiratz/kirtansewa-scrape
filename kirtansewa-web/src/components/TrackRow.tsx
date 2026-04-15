@@ -1,8 +1,7 @@
-import { GripVertical, Music2, Heart, Trash2 } from 'lucide-react';
+import { GripVertical, Music2, Trash2 } from 'lucide-react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { usePlayerStore } from '../store/playerStore';
-import { useLibraryStore } from '../store/libraryStore';
 import type { Track } from '../types';
 
 interface TrackRowProps {
@@ -17,9 +16,6 @@ interface TrackRowProps {
 export function TrackRow({ track, index: _index, globalIndex, isActive, isPlaying: _isPlaying, showDragHandle }: TrackRowProps) {
   const playTrack = usePlayerStore((s) => s.playTrack);
   const removeFromQueue = usePlayerStore((s) => s.removeFromQueue);
-  const toggleLikedTrack = useLibraryStore((s) => s.toggleLikedTrack);
-  const likedTracks = useLibraryStore((s) => s.likedTracks);
-  const isLiked = likedTracks.some((t) => t.url === track.url);
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: `track-${globalIndex}`,
@@ -81,24 +77,10 @@ export function TrackRow({ track, index: _index, globalIndex, isActive, isPlayin
         )}
       </button>
 
-      <button
-        type="button"
-        onClick={() => toggleLikedTrack(track)}
-        className={`transition-colors shrink-0 ${
-          isLiked
-            ? "text-gold opacity-100"
-            : "text-text-muted hover:text-text-secondary opacity-0 group-hover:opacity-100"
-        }`}
-        aria-label={isLiked ? "Unlike track" : "Like track"}
-        title={isLiked ? "Unlike" : "Like"}
-      >
-        <Heart size={14} className={isLiked ? "fill-current" : ""} />
-      </button>
-
       {/* Remove from queue */}
       <button
         onClick={() => removeFromQueue(globalIndex)}
-        className="text-text-muted hover:text-text-secondary transition-colors opacity-0 group-hover:opacity-100 shrink-0"
+        className="text-text-muted hover:text-text-secondary transition-colors shrink-0"
         title="Remove from queue"
       >
         <Trash2 size={14} />

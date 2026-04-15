@@ -5,7 +5,6 @@ import {
   Pause,
   SkipBack,
   SkipForward,
-  Shuffle,
   Repeat,
   Repeat1,
   ListMusic,
@@ -49,12 +48,10 @@ export function PlayerDock() {
   const queue = usePlayerStore((s) => s.queue);
   const currentIndex = usePlayerStore((s) => s.currentIndex);
   const isPlaying = usePlayerStore((s) => s.isPlaying);
-  const isShuffle = usePlayerStore((s) => s.isShuffle);
   const repeatMode = usePlayerStore((s) => s.repeatMode);
   const togglePlay = usePlayerStore((s) => s.togglePlay);
   const next = usePlayerStore((s) => s.next);
   const prev = usePlayerStore((s) => s.prev);
-  const toggleShuffle = usePlayerStore((s) => s.toggleShuffle);
   const cycleRepeat = usePlayerStore((s) => s.cycleRepeat);
   const toggleQueueSheet = usePlayerStore((s) => s.toggleQueueSheet);
 
@@ -177,18 +174,6 @@ export function PlayerDock() {
         {/* Transport row */}
         <div className="flex items-center justify-center gap-5">
           <button
-            onClick={toggleShuffle}
-            className={`transition-colors ${
-              isShuffle
-                ? "text-gold"
-                : "text-text-muted hover:text-text-secondary"
-            }`}
-            title="Shuffle"
-          >
-            <Shuffle size={16} />
-          </button>
-
-          <button
             onClick={prev}
             disabled={noTrack}
             className="text-text-secondary hover:text-text-primary disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
@@ -271,18 +256,6 @@ export function PlayerDock() {
           <WaveformBar variant="inline" />
 
           <div className="flex items-center gap-4">
-            <button
-              onClick={toggleShuffle}
-              className={`transition-colors ${
-                isShuffle
-                  ? "text-gold"
-                  : "text-text-muted hover:text-text-secondary"
-              }`}
-              title="Shuffle"
-            >
-              <Shuffle size={15} />
-            </button>
-
             <button
               onClick={prev}
               disabled={noTrack}

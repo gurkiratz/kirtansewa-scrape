@@ -21,7 +21,9 @@ export function ArtistDetail() {
   const artists = useDataStore((s) => s.artists);
   const addToQueue = usePlayerStore((s) => s.addToQueue);
   const clearQueue = usePlayerStore((s) => s.clearQueue);
+  const replaceQueue = usePlayerStore((s) => s.replaceQueue);
   const playTrack = usePlayerStore((s) => s.playTrack);
+  const isShuffle = usePlayerStore((s) => s.isShuffle);
   const toggleShuffle = usePlayerStore((s) => s.toggleShuffle);
   const favoriteArtists = useLibraryStore((s) => s.favoriteArtists);
   const toggleFavoriteArtist = useLibraryStore((s) => s.toggleFavoriteArtist);
@@ -31,6 +33,7 @@ export function ArtistDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [bioExpanded, setBioExpanded] = useState(false);
+  const [isShuffled, setIsShuffled] = useState(false);
   const [glowVisible, setGlowVisible] = useState(false);
   const glowTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
@@ -52,6 +55,7 @@ export function ArtistDetail() {
     setLoading(true);
     setError(false);
     setBioExpanded(false);
+    setIsShuffled(false);
 
     const artistIndex = artists.findIndex((a) => a.slug === slug);
     if (artistIndex === -1) {
@@ -101,12 +105,19 @@ export function ArtistDetail() {
 
   const handleShuffleAll = () => {
     if (!detail) return;
-    clearQueue();
     const tracks = detail.tracks.map((r) => toTrack(r, meta));
-    const shuffled = [...tracks].sort(() => Math.random() - 0.5);
-    addToQueue(shuffled);
-    toggleShuffle();
-    playTrack(0);
+    if (!isShuffled) {
+      clearQueue();
+      const shuffled = [...tracks].sort(() => Math.random() - 0.5);
+      addToQueue(shuffled);
+      if (!isShuffle) toggleShuffle();
+      playTrack(0);
+      setIsShuffled(true);
+    } else {
+      replaceQueue(tracks);
+      if (isShuffle) toggleShuffle();
+      setIsShuffled(false);
+    }
   };
 
   if (loading) {
@@ -206,8 +217,12 @@ export function ArtistDetail() {
 
             <button
               onClick={handleShuffleAll}
-              className="w-10 h-10 rounded-full bg-gold flex items-center justify-center text-surface hover:bg-gold/85 transition-colors"
-              title="Shuffle all"
+              className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+                isShuffled
+                  ? "bg-gold text-surface hover:bg-gold/85"
+                  : "border border-border text-text-secondary hover:text-text-primary hover:border-text-secondary"
+              }`}
+              title={isShuffled ? "Unshuffle" : "Shuffle all"}
             >
               <Shuffle size={17} />
             </button>
