@@ -101,7 +101,7 @@ export function DesktopSidebar({ collapsed, onToggle }: Props) {
           href={GITHUB_URL}
           target="_blank"
           rel="noreferrer"
-          className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm text-text-primary/80 hover:text-text-primary hover:bg-white/5 transition-colors ${
+          className={`flex hidden items-center gap-3 rounded-md px-3 py-2 text-sm text-text-primary/80 hover:text-text-primary hover:bg-white/5 transition-colors ${
             collapsed ? "justify-center" : ""
           }`}
           title={collapsed ? "GitHub" : undefined}

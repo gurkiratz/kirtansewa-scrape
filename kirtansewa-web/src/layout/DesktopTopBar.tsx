@@ -45,7 +45,7 @@ export function DesktopTopBar() {
         />
       </div>
 
-      <div className="ml-auto">
+      <div className="ml-auto hidden">
         <button
           className="text-text-secondary hover:text-text-primary transition-colors"
           aria-label="Account"

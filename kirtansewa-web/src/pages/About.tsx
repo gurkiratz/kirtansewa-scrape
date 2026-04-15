@@ -7,9 +7,8 @@ export function About() {
         </h1>
         <div className="text-text-secondary text-sm leading-relaxed space-y-3">
           <p>
-            Kirtan Sewa is a free, open-source web player for Puratan Sikh
-            Kirtan. Browse artists, listen to rare recordings, and build your
-            own queue.
+            Kirtan Sewa is a free web player for Puratan Gurbani Kirtan. Browse
+            artists, listen to rare recordings, and build your own queue.
           </p>
           <p>
             This project does not host any audio files. All audio content is
@@ -90,22 +89,6 @@ export function About() {
               kirtansewamalaysia@gmail.com
             </a>
             .
-          </p>
-        </div>
-        <h2 className="text-text-primary text-lg font-semibold mt-8 mb-3">
-          Source Code
-        </h2>
-        <div className="text-text-secondary text-sm leading-relaxed space-y-3">
-          <p>
-            This project is open source and available on{" "}
-            <a
-              href="https://github.com/gurkiratz/kirtansewa-scrape"
-              target="_blank"
-              rel="noreferrer"
-              className="underline"
-            >
-              GitHub
-            </a>
           </p>
         </div>
       </div>

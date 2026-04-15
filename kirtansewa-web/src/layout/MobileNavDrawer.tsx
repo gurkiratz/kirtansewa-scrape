@@ -109,7 +109,7 @@ export function MobileNavDrawer({ open, onClose }: Props) {
             href={GITHUB_URL}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors"
+            className="flex hidden items-center gap-3 rounded-md px-3 py-2.5 text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors"
           >
             <SiGithub size={18} className="shrink-0" />
             <span>GitHub</span>
