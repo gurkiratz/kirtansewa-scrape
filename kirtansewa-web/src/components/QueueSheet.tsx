@@ -60,7 +60,7 @@ export function QueueSheet() {
               Queue is empty
             </p>
           ) : (
-            <TrackList />
+            <TrackList shouldScroll={isOpen} />
           )}
         </div>
       </div>
