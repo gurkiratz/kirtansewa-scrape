@@ -39,6 +39,7 @@ export function ArtistCard({ artist, enabled, imageUrl, trackCount }: ArtistCard
           <img
             src={imageUrl}
             alt={artist.name}
+            loading="lazy"
             className="w-full h-full object-cover"
             onError={() => setImgFailed(true)}
           />

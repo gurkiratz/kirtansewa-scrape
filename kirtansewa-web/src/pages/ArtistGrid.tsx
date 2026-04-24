@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowUpDown } from 'lucide-react';
 import { useDataStore } from '../store/dataStore';
@@ -7,6 +7,8 @@ import { ArtistCard } from '../components/ArtistCard';
 import type { Artist } from '../types';
 
 type SortKey = 'name' | 'favorites';
+
+const PAGE_SIZE = 20;
 
 export function ArtistGrid() {
   const artists = useDataStore((s) => s.artists);
@@ -44,6 +46,32 @@ export function ArtistGrid() {
       });
   }, [artists, favoriteArtists, query, sortBy]);
 
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [query, sortBy]);
+
+  useEffect(() => {
+    const el = sentinelRef.current;
+    const root = scrollRef.current;
+    if (!el || !root || visibleCount >= filtered.length) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount((c) => Math.min(c + PAGE_SIZE, filtered.length));
+        }
+      },
+      { root, rootMargin: '400px' },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [visibleCount, filtered.length]);
+
+  const visible = filtered.slice(0, visibleCount);
+
   if (loading) {
     return (
       <div className="flex-1 flex items-center justify-center text-text-muted text-sm">
@@ -53,7 +81,7 @@ export function ArtistGrid() {
   }
 
   return (
-    <div className="flex-1 overflow-y-auto">
+    <div ref={scrollRef} className="flex-1 overflow-y-auto">
       {/* Toolbar */}
       <div className="sticky top-0 z-10 bg-surface border-b border-border px-4 md:px-5 py-2.5 flex items-center gap-3 md:gap-4">
         <button
@@ -71,12 +99,12 @@ export function ArtistGrid() {
 
       {/* Mobile: flat name list */}
       <div className="md:hidden">
-        <MobileArtistList artists={filtered} scrapedSlugs={scrapedSlugs} />
+        <MobileArtistList artists={visible} totalCount={filtered.length} scrapedSlugs={scrapedSlugs} />
       </div>
 
       {/* Desktop: card grid */}
       <div className="hidden md:grid p-5 gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}>
-        {filtered.map((artist) => (
+        {visible.map((artist) => (
           <ArtistCard
             key={artist.slug}
             artist={artist}
@@ -91,20 +119,26 @@ export function ArtistGrid() {
           </div>
         )}
       </div>
+
+      {visibleCount < filtered.length && (
+        <div ref={sentinelRef} className="h-8" aria-hidden />
+      )}
     </div>
   );
 }
 
 function MobileArtistList({
   artists,
+  totalCount,
   scrapedSlugs,
 }: {
   artists: Artist[];
+  totalCount: number;
   scrapedSlugs: Set<string>;
 }) {
   const navigate = useNavigate();
 
-  if (artists.length === 0) {
+  if (totalCount === 0) {
     return (
       <p className="text-center text-text-muted text-sm py-16">No artists found</p>
     );
