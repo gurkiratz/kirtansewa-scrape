@@ -1,25 +1,1112 @@
 [
-  "akal-sangeet-sabha-amritsar",
-  "asa-singh-mastana",
-  "bhai-ajit-singh-alankari",
-  "bhai-ajit-singh-jalandhar",
-  "bhai-amar-singh-delhi",
-  "bhai-amarjeet-singh-delhi",
-  "bhai-amarjit-singh-taan",
-  "bhai-amrik-singh-gurdaspuri",
-  "bhai-amrik-singh-hazoori-raagi-amritsar",
-  "bhai-amul-singh-bombay",
-  "bhai-anand-singh-delhi",
-  "bhai-angad-singh",
-  "bhai-anoop-singh-patara",
-  "bhai-arjan-singh-bairagi-delhi",
-  "bhai-arjan-singh-matharu",
-  "bhai-avtar-singh-aajiz",
-  "bhai-avtar-singh-bodal",
-  "bhai-avtar-singh-bombay",
-  "bhai-balbir-singh-hazoori-raagi-amritsar",
-  "bhai-gurmeet-singh-shant",
-  "dr-alankar-singh",
-  "giani-amar-singh-sagoo-nairobi",
-  "prof-kartar-singh"
+  {
+    "slug": "akal-sangeet-sabha-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003924/Akal-Sangeet-Sabha-Amritsar-2-2.jpg",
+    "track_count": 14
+  },
+  {
+    "slug": "asa-singh-mastana",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21231757/Asa-Singh-Mastana-2.jpg",
+    "track_count": 4
+  },
+  {
+    "slug": "bhai-ajit-singh-alankari",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/02/21233712/Bhai-Ajit-Singh-Alankari-3.jpg",
+    "track_count": 247
+  },
+  {
+    "slug": "bhai-ajit-singh-jalandhar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233029/Bhai-Ajit-Singh-Jalandhar-1.jpg",
+    "track_count": 14
+  },
+  {
+    "slug": "bhai-amar-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/07/22002017/Bhai-Amar-Singh-5-2.jpg",
+    "track_count": 123
+  },
+  {
+    "slug": "bhai-amarjeet-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/11/21235407/Bhai-Amarjeet-Singh-Delhi.jpg",
+    "track_count": 21
+  },
+  {
+    "slug": "bhai-amarjit-singh-taan",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22013833/Bhai-Amarjit-Singh-Taan-2.jpg",
+    "track_count": 455
+  },
+  {
+    "slug": "bhai-amrik-singh-gurdaspuri",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/11/21222128/Bhai-Amrik-Singh-Gurdaspuri-2.jpg",
+    "track_count": 128
+  },
+  {
+    "slug": "bhai-amrik-singh-hazoori-raagi-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/04/21223827/Bhai-Amrik-Singh-Amritsar.jpg",
+    "track_count": 2
+  },
+  {
+    "slug": "bhai-amul-singh-bombay",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005207/Bhai-Amul-Singh-Bombay-scaled.jpg",
+    "track_count": 119
+  },
+  {
+    "slug": "bhai-anand-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2022/12/21224705/Bhai-Anand-Singh-Delhi-1.jpg",
+    "track_count": 24
+  },
+  {
+    "slug": "bhai-angad-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/11/21235010/Bhai-Angad-Singh-Delhi-B.-Hargun-S.-B.-Partap-S.-tabla.jpg",
+    "track_count": 220
+  },
+  {
+    "slug": "bhai-anoop-singh-patara",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/06/21223215/Bhai-Anoop-Singh-Patara-2.jpg",
+    "track_count": 33
+  },
+  {
+    "slug": "bhai-arjan-singh-bairagi-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/07/22012646/Bhai-Arjan-Singh-Bairagi.jpg",
+    "track_count": 32
+  },
+  {
+    "slug": "bhai-arjan-singh-matharu",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22011619/Bhai-Arjan-Singh-Matharu.jpg",
+    "track_count": 69
+  },
+  {
+    "slug": "bhai-avtar-singh-aajiz",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/02/21233701/Bhai-Avtar-Singh-Aajiz-1.jpg",
+    "track_count": 56
+  },
+  {
+    "slug": "bhai-avtar-singh-bodal",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/12/21222105/Bhai-Avtar-Livtar-Harbagh-SIngh-Bodal.jpg",
+    "track_count": 39
+  },
+  {
+    "slug": "bhai-avtar-singh-bombay",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21232023/z-avtar2.jpg",
+    "track_count": 64
+  },
+  {
+    "slug": "bhai-bakshish-singh-patiala",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/12/21225839/Bhai-Bakshish-Singh-BW-2.jpg",
+    "track_count": 364
+  },
+  {
+    "slug": "bhai-balbir-singh-hazoori-raagi-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/10/19182227/IMG-20251019-WA0001.jpg",
+    "track_count": 301
+  },
+  {
+    "slug": "bhai-baljeet-singh-usa",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/09/21230919/Bhai-Baljeet-Singh-Bhai-Gajjan-Singh.jpg",
+    "track_count": 38
+  },
+  {
+    "slug": "bhai-balkar-singh-multani",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21231957/multani-2.jpg",
+    "track_count": 148
+  },
+  {
+    "slug": "bhai-balvir-singh-ludhiana",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22013831/DSC05492.jpg",
+    "track_count": 104
+  },
+  {
+    "slug": "bhai-banta-singh-hazoori-raagi-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/09/22000239/Bhai-Banta-Singh-1-2.jpg",
+    "track_count": 227
+  },
+  {
+    "slug": "bhai-bawa-singh-gurdaspur",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/04/15102131/IMG-20250415-WA0003.jpg",
+    "track_count": 23
+  },
+  {
+    "slug": "bhai-beant-singh-bijli",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21231700/Bijli-Ji-2-Enhanced.jpg",
+    "track_count": 113
+  },
+  {
+    "slug": "bhai-bhagwan-singh-uk",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/12/21222009/Baba-Bhagwan-Singh.jpg",
+    "track_count": 25
+  },
+  {
+    "slug": "bhai-bhagwant-singh-london",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/10/21235902/Bhai-Bhagwant-Singh.jpg",
+    "track_count": 216
+  },
+  {
+    "slug": "bhai-bhupinder-singh-paras",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/09/21231032/Bhai-Bhupinder-Singh-Paras-edited.jpg",
+    "track_count": 249
+  },
+  {
+    "slug": "bhai-budh-singh-taan",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/08/21222621/AIR-Budh-Singh-Tan-2-2.jpg",
+    "track_count": 17
+  },
+  {
+    "slug": "bhai-charanjit-singh-patiala",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22012658/DSC00006.jpg",
+    "track_count": 277
+  },
+  {
+    "slug": "bhai-charanjit-singh-thawar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/03/09035731/IMG-20210319-WA0012.jpg",
+    "track_count": 324
+  },
+  {
+    "slug": "bhai-chattar-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005232/Bhai-Chattar-Singh-Ji-2.jpg",
+    "track_count": 501
+  },
+  {
+    "slug": "bhai-chattar-singh-mastana",
+    "image_url": null,
+    "track_count": 47
+  },
+  {
+    "slug": "bhai-chhaila-patiala",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22020040/Bhai-Chhaila.jpg",
+    "track_count": 7
+  },
+  {
+    "slug": "bhai-dalip-singh-harinder-singh-fakkar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/10/22000029/DSC02256-scaled.jpg",
+    "track_count": 58
+  },
+  {
+    "slug": "bhai-darshan-singh-chakar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/10/21222304/Bhai-Darshan-Singh-Chakar.jpg",
+    "track_count": 30
+  },
+  {
+    "slug": "bhai-darshan-singh-ji-dilruba-veera-ji",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22004142/WhatsApp-Image-2020-05-24-at-01.28.17.jpeg",
+    "track_count": 1
+  },
+  {
+    "slug": "bhai-darshan-singh-kamal-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234158/Bhai-Darshan-Singh-Kamal-Nirmal-S.-Karam-S.-tabla.jpg",
+    "track_count": 92
+  },
+  {
+    "slug": "bhai-dawinder-singh-shant",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22013028/Bhai-Dawinder-Singh-Shant-2.jpg",
+    "track_count": 179
+  },
+  {
+    "slug": "bhai-daya-singh-patna-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/07/21222738/Bhai-Daya-Singh-Patna-Sahib-2.jpg",
+    "track_count": 51
+  },
+  {
+    "slug": "bhai-devinder-singh-gurdaspuri",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/07/21232639/Gurdaspuri.jpg",
+    "track_count": 282
+  },
+  {
+    "slug": "bhai-didar-singh-nangal",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005243/Bhai-Didar-Singh-scaled.jpg",
+    "track_count": 244
+  },
+  {
+    "slug": "bhai-dilbagh-gulbagh-singh-bodal",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2022/06/21225055/Bhai-Dilbagh-Gulbagh-Devinder-Iqbal-Bodal.jpg",
+    "track_count": 369
+  },
+  {
+    "slug": "bhai-diwan-singh-maskin-bombay",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22012701/Diwan-Singh-2.jpg",
+    "track_count": 229
+  },
+  {
+    "slug": "bhai-gam",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/07/05105940/Bhai-Gam-Rababi.jpg",
+    "track_count": 8
+  },
+  {
+    "slug": "bhai-ghulam-mohammed-chand",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/08/28080843/Bhai-Ghulam-Mohammad-Chand-1.jpg",
+    "track_count": 21
+  },
+  {
+    "slug": "bhai-gian-singh-surjit",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/01/21234159/Bhai-Gian-Singh-Surjit-B.-Kamaljit-B.-Gurbachan-S.-Hamdard-1.jpg",
+    "track_count": 126
+  },
+  {
+    "slug": "bhai-gopal-singh-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2024/04/21221634/Bhai-Gopal-Singh-Amritsar.jpg",
+    "track_count": 276
+  },
+  {
+    "slug": "bhai-gulab-singh-sindh",
+    "image_url": null,
+    "track_count": 2
+  },
+  {
+    "slug": "bhai-gulzar-singh-rangila-phagwara",
+    "image_url": null,
+    "track_count": 4
+  },
+  {
+    "slug": "bhai-gurcharan-singh-rasila",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/06/22003334/Bhai-Gurcharan-Singh-Rasila-2-2.jpg",
+    "track_count": 57
+  },
+  {
+    "slug": "bhai-gurcharan-singh-sagoo-ludhiana",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/07/21223214/Bhai-Gurcharan-Singh-Sagoo-1-Color-Restored.jpg",
+    "track_count": 16
+  },
+  {
+    "slug": "bhai-gurdial-singh-rasia-uk",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22011617/Gurdial-Singh-Rasia-2-scaled.jpg",
+    "track_count": 138
+  },
+  {
+    "slug": "bhai-gurdyal-singh-kirpal-singh-sees-ganj",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22004923/Bhai-Gurdyal-Kirpal-Singh-2-scaled.jpg",
+    "track_count": 17
+  },
+  {
+    "slug": "bhai-gurfateh-singh-shant",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22012700/20160421_160306.jpg",
+    "track_count": 97
+  },
+  {
+    "slug": "bhai-gurmail-singh-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/08/22001812/Bhai-Gurmail-Singh-2-scaled.jpg",
+    "track_count": 351
+  },
+  {
+    "slug": "bhai-gurmeet-singh-shant",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005122/Bhai-Gurmeet-Singh-Shant-in-Malaysia-2-scaled.jpg",
+    "track_count": 533
+  },
+  {
+    "slug": "bhai-gurmej-singh-hazoori-raagi-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/12/21234347/Bhai-Gurmej-Singh-2-2.jpg",
+    "track_count": 320
+  },
+  {
+    "slug": "bhai-gurmit-singh-calcutta",
+    "image_url": null,
+    "track_count": 400
+  },
+  {
+    "slug": "bhai-gurmukh-singh-sarmukh-singh-fakkar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/11/21230241/Bhai-Gurmukh-Singh-Sarmukh-Singh-Fakkar-2.jpg",
+    "track_count": 2
+  },
+  {
+    "slug": "bhai-gurmukh-singh-suraj-kota",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22004242/Bhai-Gurmukh-Singh-Suraj-2.jpg",
+    "track_count": 4
+  },
+  {
+    "slug": "bhai-gurmukh-singh-usa-jalandhar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2024/03/21221929/Bhai-Gurmukh-Singh-Jalandhar-son-of-Bhai-Bahadur-Singh-1.jpg",
+    "track_count": 108
+  },
+  {
+    "slug": "bhai-gurnam-singh-america",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/11/21230245/Bhai-Gurnam-Singh-America2-Enhanced.jpg",
+    "track_count": 6
+  },
+  {
+    "slug": "bhai-gurpartap-singh-hazoor-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/09/21230844/Bhai-Gurpartap-Singh-Hazoor-Sahib-Enhanced.jpg",
+    "track_count": 191
+  },
+  {
+    "slug": "bhai-gurpreet-singh-bathinda",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/09/21231639/Bhai-Gurpreet-Singh-Bathinda.png",
+    "track_count": 106
+  },
+  {
+    "slug": "bhai-gursharan-singh-damdami-taksal",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/01/14045756/Bhai-Gursharan-Singh-Damdami-Taksal-.jpg",
+    "track_count": 277
+  },
+  {
+    "slug": "bhai-gurwinder-singh-kashmir",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005122/Bhai-Gurvinder-Singh-Kashmir.jpg",
+    "track_count": 68
+  },
+  {
+    "slug": "bhai-gyan-singh-jogi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/04/21233647/Photo-1500385-2-Enhanced-Color-Restored.jpg",
+    "track_count": 154
+  },
+  {
+    "slug": "bhai-harbaljeet-singh-batala",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/08/22001157/Bhai-Harbaljeet-Singh.jpg",
+    "track_count": 53
+  },
+  {
+    "slug": "bhai-harbans-singh-jagadhari",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2026/03/09071422/Bhai-Harbans-Singh-Jagadhari-Indar-Gurcharan-S.-with-NSS-2.jpg",
+    "track_count": 319
+  },
+  {
+    "slug": "bhai-harbans-singh-suraj-uk-2",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/11/21235035/Bhai-Harbans-Singh-Suraj-Joginder-Singh-Jogi-3.jpg",
+    "track_count": 213
+  },
+  {
+    "slug": "bhai-harbhajan-singh-lehri-sri-ganganagar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2022/11/21224813/Bhai-Harbhajan-Singh-Lehri-Photo.jpg",
+    "track_count": 25
+  },
+  {
+    "slug": "bhai-harbhajan-singh-mauji",
+    "image_url": null,
+    "track_count": 4
+  },
+  {
+    "slug": "bhai-harcharan-singh-fakkar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22020026/IMG-20130926-WA0017.jpg",
+    "track_count": 45
+  },
+  {
+    "slug": "bhai-hardial-singh-kirpal-singh-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/12/21234346/Bhai-Hardial-Kirpal-Singh-Amritsar-2.jpg",
+    "track_count": 20
+  },
+  {
+    "slug": "bhai-hari-singh-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2022/02/21225322/Bhai-Hari-Singh-Ji-Amritsar-2.jpg",
+    "track_count": 132
+  },
+  {
+    "slug": "bhai-harjit-gurdeep-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/07/22003052/BHai-Harjeet-Gurdeep-Singh-3.jpg",
+    "track_count": 259
+  },
+  {
+    "slug": "bhai-harjit-singh-ludhiana",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22013052/DSC04927.jpg",
+    "track_count": 27
+  },
+  {
+    "slug": "bhai-inderjeet-singh-derby",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005302/Bhai-Inderjit-Singh-ji-Derby.jpg",
+    "track_count": 136
+  },
+  {
+    "slug": "bhai-inderjit-singh-bombay",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005118/bhai-inderjit-singh-bombay-6-2.jpg",
+    "track_count": 348
+  },
+  {
+    "slug": "bhai-inderjit-singh-sajan-jalandhar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22004216/Bhai-Inderjit-Singh-Sajan-3.jpg",
+    "track_count": 67
+  },
+  {
+    "slug": "bhai-jagjit-singh-komal",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/07/22012701/Jagjit-Komal-2.jpg",
+    "track_count": 58
+  },
+  {
+    "slug": "bhai-jagmohan-harmohan-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005302/Bhai-Jagmohan-Harmohan-Singh-2.jpg",
+    "track_count": 23
+  },
+  {
+    "slug": "bhai-jagtar-singh-harinder-singh-fakkar-patiala",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22011621/Bhai-Jagtar-Singh-Fakkar-1.jpg",
+    "track_count": 129
+  },
+  {
+    "slug": "bhai-jasbir-singh-paonta-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22012657/js-paonta-sahib-4.jpg",
+    "track_count": 217
+  },
+  {
+    "slug": "bhai-jaspal-singh-usa",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/11/21230624/Screenshot84-Color-Restored.jpg",
+    "track_count": 173
+  },
+  {
+    "slug": "bhai-jaspreet-singh-fatehgarh-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22015929/20160415_194327.jpg",
+    "track_count": 88
+  },
+  {
+    "slug": "bhai-joginder-gurbachan-singh-patna-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22011616/IMG-20181220-WA0004.jpg",
+    "track_count": 67
+  },
+  {
+    "slug": "bhai-joginder-mohinder-singh-hazoor-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/10/21230710/Bhai-Joginder-Mohinder-Singh-Kirtan-Sewa.jpg",
+    "track_count": 126
+  },
+  {
+    "slug": "bhai-jotvir-singh-jalandhar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22004013/Bhai-Jotvir-Singh-scaled.jpg",
+    "track_count": 17
+  },
+  {
+    "slug": "bhai-kadam-singh-delhi",
+    "image_url": null,
+    "track_count": 17
+  },
+  {
+    "slug": "bhai-kalyan-singh-lucknow",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/07/22013030/Bhai-Kalyan-Singh-2.jpg",
+    "track_count": 175
+  },
+  {
+    "slug": "bhai-kanwarpal-singh",
+    "image_url": "https://i0.wp.com/www.gurmatsangeetproject.com/Images/millis%2005%20kanwarpal%20singh.jpg?resize=462%2C307",
+    "track_count": 122
+  },
+  {
+    "slug": "bhai-karam-singh-ratan",
+    "image_url": null,
+    "track_count": 94
+  },
+  {
+    "slug": "bhai-karnail-singh-dhiraj",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005238/Bhai-Kernail-Singh-Dhiraj-2-scaled.jpg",
+    "track_count": 154
+  },
+  {
+    "slug": "bhai-kartar-singh-nankana-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005241/DSC_0771-2.jpg",
+    "track_count": 3
+  },
+  {
+    "slug": "bhai-kartar-singh-parwana",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22004949/Bhai-Kartar-Singh-Parwana-Faridabad-2.jpg",
+    "track_count": 90
+  },
+  {
+    "slug": "bhai-kirpal-singh-hazoori-raagi-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21232003/Bhai-Kirpal-Singh-Hazoori-Raagi-Amritsar.jpg",
+    "track_count": 79
+  },
+  {
+    "slug": "bhai-kishan-singh-parwana",
+    "image_url": null,
+    "track_count": 18
+  },
+  {
+    "slug": "bhai-kishanpal-singh-patiala",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22011616/Bhai-Kishanpal.jpg",
+    "track_count": 146
+  },
+  {
+    "slug": "bhai-kulwinder-singh-anandpur-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21232015/Bhai-Kulwinder-Singh-Anandpur-Sahib.jpg",
+    "track_count": 129
+  },
+  {
+    "slug": "bhai-kulwinder-singh-raushan",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233004/Bhai-Kulwinder-Singh-Raushan-4.jpg",
+    "track_count": 17
+  },
+  {
+    "slug": "bhai-lal-ji-nankana-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21232004/BHai-LAl.jpg",
+    "track_count": 65
+  },
+  {
+    "slug": "bhai-lal-singh-mairath",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/07/22012702/Bhai-Lal-Singh-Meerath-2.jpg",
+    "track_count": 11
+  },
+  {
+    "slug": "bhai-mahinder-shiv-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005105/Bhai-Mahinder-Shiv-Singh-2-2.jpg",
+    "track_count": 76
+  },
+  {
+    "slug": "bhai-malkeet-singh-chandigarh",
+    "image_url": "https://i0.wp.com/cdn.kirtansewa.net/wp-content/uploads/2020/12/21234309/Pic-5-Bhai-Malkeet-Singh-Ji-Surrey-Pic-1024x576.jpg?resize=633%2C370",
+    "track_count": 44
+  },
+  {
+    "slug": "bhai-mangal-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22005045/Bhai-Mangal-Singh-2.jpg",
+    "track_count": 24
+  },
+  {
+    "slug": "bhai-maninder-singh-hazoori-raagi-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/02/21224221/Bhai-Maninder-Singh-Amritsar.jpg",
+    "track_count": 279
+  },
+  {
+    "slug": "bhai-manjit-singh-hazoori-raagi-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/03/08142159/Bhai-Manjit-Singh-Amritsar-5.jpg",
+    "track_count": 208
+  },
+  {
+    "slug": "bhai-manjit-singh-yuba-city-california",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/03/21224139/Bhai-Manjit-Singh-Yuba-City-1.jpg",
+    "track_count": 18
+  },
+  {
+    "slug": "bhai-manohar-singh-mouji-tarn-taran",
+    "image_url": null,
+    "track_count": 3
+  },
+  {
+    "slug": "bhai-manveer-singh-nanaksar-bhucho",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22013832/Bhai-Manveer-Singh.jpg",
+    "track_count": 3
+  },
+  {
+    "slug": "bhai-mohan-singh-bombay",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005301/Bhai-Mohan-Singh-Bombay-6-2.jpg",
+    "track_count": 50
+  },
+  {
+    "slug": "bhai-mohinder-singh-sagar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/09/22000757/Bhai-Mohinder-Singh-Sagar-2.jpg",
+    "track_count": 160
+  },
+  {
+    "slug": "bhai-mohinder-singh-thumri-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22012656/Mohinder-Singh-Thumri.jpg",
+    "track_count": 34
+  },
+  {
+    "slug": "bhai-mohinderjeet-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22005044/Slide3-2.jpg",
+    "track_count": 171
+  },
+  {
+    "slug": "bhai-mukhtar-singh-dilbar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/11/21235353/Bhai-Mukhtiyar-Singh-Dilbar.jpg",
+    "track_count": 18
+  },
+  {
+    "slug": "bhai-munsha-singh-kapurthala",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2022/12/21224813/Bhai-Munsha-Singh-Kapurthala.jpg",
+    "track_count": 23
+  },
+  {
+    "slug": "bhai-nanak-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005218/BHai-Nanak-Singh-Delhi-2.jpg",
+    "track_count": 10
+  },
+  {
+    "slug": "bhai-nanak-singh-nabha",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/06/21223252/Bhai-Nanak-Singh-Nabha-Repaired-Enhanced.jpg",
+    "track_count": 13
+  },
+  {
+    "slug": "bhai-nanak-singh-preet",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/08/22001630/Bhai-Nanak-Singh-Preet-2.jpg",
+    "track_count": 242
+  },
+  {
+    "slug": "bhai-nand-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/11/21235222/Bhai-Nand-Singh-Delhi-1995-1.jpg",
+    "track_count": 341
+  },
+  {
+    "slug": "bhai-narayan-singh-nairobi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/11/21235011/Bhai-Narayan-Singh-Nairobi-New-York.jpg",
+    "track_count": 88
+  },
+  {
+    "slug": "bhai-narinder-singh-banaresi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005246/bhai-narinder-singh-2.jpg",
+    "track_count": 158
+  },
+  {
+    "slug": "bhai-narinder-singh-fatehgarh-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2024/07/21221531/Bhai-Narinder-Singh-Fatehgarh-Sahib-2.jpg",
+    "track_count": 26
+  },
+  {
+    "slug": "bhai-nirmal-singh-khalsa-hazoori-raagi-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005245/Bhai-Nirmal-Singh-Khalsa-2.jpg",
+    "track_count": 45
+  },
+  {
+    "slug": "bhai-nirmal-singh-khalsa-sees-ganj-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005219/Bhai-Nirmal-Singh-Khalsa-Sees-Ganj.jpg",
+    "track_count": 13
+  },
+  {
+    "slug": "bhai-pal-singh-nankana-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21232018/Photo-1500074-1-Enhanced.jpg",
+    "track_count": 20
+  },
+  {
+    "slug": "bhai-piara-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003907/Bhai-Piara-Singh.jpg",
+    "track_count": 27
+  },
+  {
+    "slug": "bhai-pritam-singh-meerut",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21231956/Bhai-Pritam-Singh-Meerut.jpg",
+    "track_count": 42
+  },
+  {
+    "slug": "bhai-prithipal-mohanpal-singh-patiala",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22003855/From-left-Bhai-Prithipal-Mohanpal-Kishanpal-scaled.jpg",
+    "track_count": 94
+  },
+  {
+    "slug": "bhai-prithipal-singh-kang-mhow",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/11/21230044/Photo-1500814-1-Enhanced.jpg",
+    "track_count": 134
+  },
+  {
+    "slug": "bhai-pritpal-singh-bedi-kolkata",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/07/01094042/Bhai-Pritpal-Singh-Bedi-Kolkata-2.jpg",
+    "track_count": 37
+  },
+  {
+    "slug": "bhai-puran-singh-tarn-taran",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2022/01/21225557/Bhai-Puran-Singh-Tarn-Taran.png",
+    "track_count": 2
+  },
+  {
+    "slug": "bhai-raghbir-singh-diwana-nairobi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233236/Photo-1500825-3-Enhanced-Color-Restored.jpg",
+    "track_count": 190
+  },
+  {
+    "slug": "bhai-raghbir-singh-zakhmi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005206/Bhai-Raghuvir-Singh-Zakhmi-2-scaled.jpg",
+    "track_count": 33
+  },
+  {
+    "slug": "bhai-rai-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/07/22002016/Bhai-Rai-Singh-1.jpg",
+    "track_count": 365
+  },
+  {
+    "slug": "bhai-rajinder-singh-singapore",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005248/RJS-3.jpg",
+    "track_count": 586
+  },
+  {
+    "slug": "bhai-ram-singh-gulzar-malaysia",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2024/01/21221950/Bhai-Ram-Singh-Gulzar-Segamat-wedding.jpg",
+    "track_count": 19
+  },
+  {
+    "slug": "bhai-sain-ditta-amritsar",
+    "image_url": null,
+    "track_count": 4
+  },
+  {
+    "slug": "bhai-sajjan-singh-hazoori-raagi-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22012659/Bhai-Sajjan-Singh-Darbar-Sahib.jpg",
+    "track_count": 29
+  },
+  {
+    "slug": "bhai-sandeep-singh-deep-hazoori-raagi-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/10/22000028/Bhai-Sandeep-Singh-Deep-2.jpg",
+    "track_count": 98
+  },
+  {
+    "slug": "bhai-sant-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005303/Bhai-Sant-Singh-ji-1.-2.jpg",
+    "track_count": 107
+  },
+  {
+    "slug": "bhai-santa-singh-chamak",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/07/22012654/Bhai-Santa-Singh-Chamak.jpg",
+    "track_count": 1
+  },
+  {
+    "slug": "bhai-santa-singh-virdi-yamuna-nagar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/01/21224439/Bhai-Santa-Singh-Virdi-Yamuna-Nagar.png",
+    "track_count": 7
+  },
+  {
+    "slug": "bhai-santokh-singh-deep",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/12/21225935/Bhai-Santokh-SIngh-Deep-Enhanced.jpg",
+    "track_count": 38
+  },
+  {
+    "slug": "bhai-sarabjit-singh-rangila",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/11/21235034/Bhai-Sarabjit-JI-Rangila-Durg-Jun-05-15-2.jpg",
+    "track_count": 751
+  },
+  {
+    "slug": "bhai-satnam-singh-khalsa-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2022/06/21225055/Bhai-Satnam-Singh-Khalsa-Delhi.jpg",
+    "track_count": 148
+  },
+  {
+    "slug": "bhai-satnam-singh-patiala-gharana",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21231956/Bhai-Satnam-SinghPatiala12-Enhanced-Color-Restored.jpg",
+    "track_count": 6
+  },
+  {
+    "slug": "bhai-satninder-singh-bodal",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/06/22013830/DSC05375.jpg",
+    "track_count": 127
+  },
+  {
+    "slug": "bhai-satvinder-harvinder-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22005045/Bhai-Satvinder-Harvinder-scaled.jpg",
+    "track_count": 313
+  },
+  {
+    "slug": "bhai-seva-singh-gandharab-singapore",
+    "image_url": null,
+    "track_count": 30
+  },
+  {
+    "slug": "bhai-shamandeep-singh-taan-fatehgarh-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005248/IMG-20150511-WA0002.jpg",
+    "track_count": 12
+  },
+  {
+    "slug": "bhai-shamsher-singh-delhi-brother-of-bhai-santa-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22011618/Bhai-Shamsher-Singhbro-of-Bhai-Santa-Singh.jpg",
+    "track_count": 86
+  },
+  {
+    "slug": "bhai-shamsher-singh-shaad",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/11/21235034/Bhai-Shamsher-Singh-Shaad-Delhi-1992-1-1.jpg",
+    "track_count": 83
+  },
+  {
+    "slug": "bhai-shamsher-singh-zakhmi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/07/22003132/bhai-shamsher-singh-zakhmi-2.jpg",
+    "track_count": 279
+  },
+  {
+    "slug": "bhai-sher-singh-soorma-hazoori-raagi-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2022/10/21225005/Bhai-Sher-Singh-Soorma-Kokri-Kala-2.jpg",
+    "track_count": 5
+  },
+  {
+    "slug": "bhai-sital-singh-sitara",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/08/22001906/Bhai-Sital-Singh-Sitara-3.jpg",
+    "track_count": 41
+  },
+  {
+    "slug": "bhai-sohan-singh-rasia",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/12/21225936/Bhai-Sohan-Singh-Rasia-B.-Ravinder-S.-B.-Ajit-S.-2.jpg",
+    "track_count": 304
+  },
+  {
+    "slug": "bhai-subhag-singh-kashipur",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/08/22001214/Bhai-Subhag-Singh.jpg",
+    "track_count": 17
+  },
+  {
+    "slug": "bhai-sujan-singh-delhi",
+    "image_url": null,
+    "track_count": 1
+  },
+  {
+    "slug": "bhai-sukhbir-singh",
+    "image_url": null,
+    "track_count": 123
+  },
+  {
+    "slug": "bhai-sumitar-singh-keshgarh-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/03/21233652/Bhai-Sumitar-Singh-edit-1.jpg",
+    "track_count": 8
+  },
+  {
+    "slug": "bhai-surinder-singh-patna-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2024/07/21221523/Bhai-Surinder-Singh-Patna-Sahib.jpg",
+    "track_count": 168
+  },
+  {
+    "slug": "bhai-surjan-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/07/22002426/Bhai-Surjan-Singh-2.jpg",
+    "track_count": 47
+  },
+  {
+    "slug": "bhai-surjeet-singh-tagore-garden",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/08/22001946/Bhai-Surjeet-Singh-Tagore-Garden-1-2.jpg",
+    "track_count": 36
+  },
+  {
+    "slug": "bhai-surjit-singh-ex-hazoori-raagi-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/11/21230224/Bhai-Surjit-Singh-Amritsar-1-B.-Joginder-S.-and-B.-Kashmir-S..jpg",
+    "track_count": 162
+  },
+  {
+    "slug": "bhai-surjit-singh-long-island",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22004012/Bhai-Surjit-Singh-Long-Island-scaled.jpg",
+    "track_count": 323
+  },
+  {
+    "slug": "bhai-taaba-ji-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/09/21222520/Bhai-Taaba-harmonium-Bhai-Nasira-Jori-2.jpg",
+    "track_count": 8
+  },
+  {
+    "slug": "bhai-takhat-singh-anand-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/01/12095603/Bhai-Takhat-Singh-Delhi-2.jpg",
+    "track_count": 99
+  },
+  {
+    "slug": "bhai-tarlochan-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/07/22012647/20130507_004edit.jpg",
+    "track_count": 126
+  },
+  {
+    "slug": "bhai-utam-singh-hakim-amritsar",
+    "image_url": null,
+    "track_count": 16
+  },
+  {
+    "slug": "bhai-vishan-shah-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/10/21235521/Bhai-Vishan-Shah-Singh-2.jpg",
+    "track_count": 63
+  },
+  {
+    "slug": "bibi-janak-kaur-bhai-gokul-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233250/Photo-1500522-1-Enhanced.jpg",
+    "track_count": 20
+  },
+  {
+    "slug": "bibi-karamjit-kaur-patiala",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/05/30154416/Bibi-Karamjit-Kaur-Patiala.jpeg",
+    "track_count": 10
+  },
+  {
+    "slug": "bibi-mansha-kaur-prof-piara-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/01/17144812/Bibi-Mansha-Kaur-Prof.-Piara-Singh.jpg",
+    "track_count": 22
+  },
+  {
+    "slug": "deedar-singh-pardesi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2022/12/21224756/Deedar-Singh-Pardesi.jpg",
+    "track_count": 5
+  },
+  {
+    "slug": "devender-pal-singh",
+    "image_url": "https://i0.wp.com/i.ytimg.com/vi/f3iiC6Qf2EM/maxresdefault.jpg?resize=735%2C413&ssl=1",
+    "track_count": 34
+  },
+  {
+    "slug": "dr-alankar-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/11/21234827/Dr.-Alankar-Singh-2-scaled.jpg",
+    "track_count": 19
+  },
+  {
+    "slug": "dr-jagir-singh-chandigarh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/12/21234537/Dr.-Jagir-Singh-3.jpg",
+    "track_count": 249
+  },
+  {
+    "slug": "giani-amar-singh-sagoo-nairobi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/11/01105741/Giani-Amar-Singh-Sagoo-8.jpg",
+    "track_count": 9
+  },
+  {
+    "slug": "giani-darshan-singh-sohal-uk",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005209/Gyani-Darshan-Singh-Sohal-1.jpg",
+    "track_count": 113
+  },
+  {
+    "slug": "giani-gurcharan-singh-mombasa-kenya",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2024/01/21221950/Giani-Gurcharan-SinghKenya3-Enhanced-Color-Restored.jpg",
+    "track_count": 44
+  },
+  {
+    "slug": "giani-harnam-singh-ballabh-penang",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/12/21222020/Giani-Harnam-Singh-Ballabh-2-Photo-Enhanced.jpg",
+    "track_count": 7
+  },
+  {
+    "slug": "giani-kartar-singh-kartar-bhawan-moga",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/11/21230357/Giani-Kartar-Singh-Kartar-Bhawan-Moga-3.jpg",
+    "track_count": 1
+  },
+  {
+    "slug": "giani-mahinder-singh-khalsa-malaysia",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21232023/Screenshot57-Enhanced-Color-Restored.jpg",
+    "track_count": 324
+  },
+  {
+    "slug": "gurdial-singh-randhawa",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22005105/Gurdial-Randhawa-4-2.jpg",
+    "track_count": 15
+  },
+  {
+    "slug": "krishna-chakraborty",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21232019/Krishna-Chakraborty2-Enhanced.jpg",
+    "track_count": 8
+  },
+  {
+    "slug": "master-surjit-singh-dardi-kanpur",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/06/21232706/dardi-12-smaller.jpg",
+    "track_count": 48
+  },
+  {
+    "slug": "pandit-madhup-mudgal",
+    "image_url": "https://i0.wp.com/cdn.kirtansewa.net/wp-content/uploads/2020/05/22005105/Madhup-Mudgal.jpg?resize=300%2C288",
+    "track_count": 5
+  },
+  {
+    "slug": "pandit-tushar-dutta",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21232017/Tushar-Dutta-2.jpg",
+    "track_count": 3
+  },
+  {
+    "slug": "parvez-mehdi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/02/21224312/Parvez-Mehdi.jpg",
+    "track_count": 2
+  },
+  {
+    "slug": "principal-baldev-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/06/21232908/Photo-1500232-1-Enhanced.jpg",
+    "track_count": 97
+  },
+  {
+    "slug": "principal-chanan-singh-majboor-prof-gurdev-singh-phull",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21231658/majboor-enhanced-photo.jpg",
+    "track_count": 63
+  },
+  {
+    "slug": "principal-dyal-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2025/04/28061458/Principal-Dyal-Singh-1.jpg",
+    "track_count": 134
+  },
+  {
+    "slug": "prof-chanan-singh-sewak-anandpur-sahib",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/09/22000644/Prof.-Chanan-Singh-Sewak-3.jpg",
+    "track_count": 48
+  },
+  {
+    "slug": "prof-charanjit-singh",
+    "image_url": null,
+    "track_count": 26
+  },
+  {
+    "slug": "prof-chet-singh-multan",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/02/21233701/SSP-12-1.jpg",
+    "track_count": 9
+  },
+  {
+    "slug": "prof-devinder-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005251/Prof.-Devinder-Singh-4-2.jpg",
+    "track_count": 181
+  },
+  {
+    "slug": "prof-harchand-singh-kalsi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2017/07/22012653/Prof.-Harchand-Singh.jpg",
+    "track_count": 36
+  },
+  {
+    "slug": "prof-hardev-singh-deepak-raag-mala-samrat",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/09/21231642/Prof-Hardev-Singh-Deepak-3.jpg",
+    "track_count": 66
+  },
+  {
+    "slug": "prof-kartar-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2022/01/21225448/Prof.-Kartar-Singh-2.jpg",
+    "track_count": 66
+  },
+  {
+    "slug": "prof-milap-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233252/Photo-1500817-3-Enhanced-Color-Restored.jpg",
+    "track_count": 16
+  },
+  {
+    "slug": "punjabi-musical-group-lahore",
+    "image_url": null,
+    "track_count": 8
+  },
+  {
+    "slug": "purshotam-das-jalota",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005241/Purshotam-Das-Jalota.jpg",
+    "track_count": 11
+  },
+  {
+    "slug": "rajwinder-kaur-amritsar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/04/22005301/Rajwinder-Kaur-2-2.jpg",
+    "track_count": 44
+  },
+  {
+    "slug": "sant-bahadur-singh-jalandhar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/12/21225934/Bhai-Bahadur-Singh-1.jpg",
+    "track_count": 139
+  },
+  {
+    "slug": "sant-joginder-singh-domeli",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/11/21230708/Sant-Joginder-Singh-Domeli.jpg",
+    "track_count": 74
+  },
+  {
+    "slug": "sant-joginder-singh-sarl",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/08/21231909/Sant-Joginder-Singh-Sarl-Enhanced-Color-Restored.jpg",
+    "track_count": 97
+  },
+  {
+    "slug": "sant-kartar-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2026/03/09064057/Sant-Kartar-Singh-Delhi-1.jpg",
+    "track_count": 9
+  },
+  {
+    "slug": "sant-partap-singh-and-the-partap-brothers",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/06/22003729/IMG_0294-scaled.jpg",
+    "track_count": 284
+  },
+  {
+    "slug": "sant-sarwan-singh-gandharv-dumeli",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/02/21233700/Sant-Sarwan-Singh.jpg",
+    "track_count": 52
+  },
+  {
+    "slug": "sant-sujan-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/10/22000029/Sant-Sujan-Singh-Ji.jpg",
+    "track_count": 247
+  },
+  {
+    "slug": "sant-surjit-singh-delhi",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2022/02/21225121/Sant-Surjit-Singh-Delhi-Repaired.jpg",
+    "track_count": 30
+  },
+  {
+    "slug": "santrain-avtar-singh",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/11/21234939/Santrain-Avtar-Singh-2.jpg",
+    "track_count": 100
+  },
+  {
+    "slug": "tilly-bai-bombay",
+    "image_url": null,
+    "track_count": 34
+  },
+  {
+    "slug": "ustad-bakhshi-salamat-qawwal",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2022/10/21224946/Ustad-Bakshi-Salamat.jpg",
+    "track_count": 2
+  },
+  {
+    "slug": "ustad-ghulam-abbas-khan-rampur-sahaswan-gharana",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/05/22004247/ghulam-abbas-khan.jpg",
+    "track_count": 7
+  },
+  {
+    "slug": "ustad-jaswant-singh-kular-teebar",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2021/06/21233005/Ustad-Jaswant-Singh-Kular.jpg",
+    "track_count": 6
+  },
+  {
+    "slug": "ustad-master-rattan-hadiabad-phagwara",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2023/02/21224311/Screenshot_20230219-133956_Gmail.jpg",
+    "track_count": 9
+  },
+  {
+    "slug": "ustad-sohan-singh-agra-gharana",
+    "image_url": "https://cdn.kirtansewa.net/wp-content/uploads/2020/11/21234948/Ustad-Sohan-SIngh-Agra-Gharana.jpg",
+    "track_count": 16
+  }
 ]

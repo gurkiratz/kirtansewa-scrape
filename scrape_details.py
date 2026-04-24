@@ -151,6 +151,12 @@ def main():
     group.add_argument("target", nargs="?", help="Single artist: 1-based index or URL")
     group.add_argument("-s", "--start", type=int, metavar="N", help="Start index (inclusive)")
     parser.add_argument("-e", "--end", type=int, metavar="N", help="End index (inclusive), used with --start")
+    parser.add_argument(
+        "-u",
+        "--update",
+        action="store_true",
+        help="Re-scrape artists that already have a JSON file (default is to skip existing files)",
+    )
     args = parser.parse_args()
 
     artists = load_artists()
@@ -178,14 +184,20 @@ def main():
         slug = get_slug(url)
         filename = os.path.join(OUTPUT_DIR, f"{i:02d}-{slug}.json")
 
-        if os.path.exists(filename) and not single_mode:
-            print(f"Skipping {filename} (already exists)")
+        if os.path.exists(filename) and not args.update:
+            print(f"Skipping {filename} (already exists, use --update to re-scrape)")
             continue
 
         print(f"[{i}/{len(artists)}] Scraping {artist['name']}...")
         try:
             data = scrape_artist(url)
             if data:
+                if args.update and os.path.exists(filename):
+                    with open(filename, encoding="utf-8") as f:
+                        existing = json.load(f)
+                    if existing == data:
+                        print("  Unchanged vs saved JSON, skipped write / manifest / mirror")
+                        continue
                 save_artist_file(i, slug, data)
         except Exception as e:
             print(f"  Error: {e}")
