@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ArrowUpDown } from 'lucide-react';
+import { ArrowUpDown, Bookmark } from 'lucide-react';
 import { useDataStore } from '../store/dataStore';
 import { useLibraryStore } from '../store/libraryStore';
 import { ArtistCard } from '../components/ArtistCard';
@@ -71,6 +71,7 @@ export function ArtistGrid() {
   }, [visibleCount, filtered.length]);
 
   const visible = filtered.slice(0, visibleCount);
+  const favoriteSet = useMemo(() => new Set(favoriteArtists), [favoriteArtists]);
 
   if (loading) {
     return (
@@ -99,7 +100,12 @@ export function ArtistGrid() {
 
       {/* Mobile: flat name list */}
       <div className="md:hidden">
-        <MobileArtistList artists={visible} totalCount={filtered.length} scrapedSlugs={scrapedSlugs} />
+        <MobileArtistList
+          artists={visible}
+          totalCount={filtered.length}
+          scrapedSlugs={scrapedSlugs}
+          favoriteSet={favoriteSet}
+        />
       </div>
 
       {/* Desktop: card grid */}
@@ -111,6 +117,7 @@ export function ArtistGrid() {
             enabled={scrapedSlugs.has(artist.slug)}
             imageUrl={imageUrls.get(artist.slug)}
             trackCount={trackCounts.get(artist.slug)}
+            isFavorite={favoriteSet.has(artist.slug)}
           />
         ))}
         {filtered.length === 0 && (
@@ -131,10 +138,12 @@ function MobileArtistList({
   artists,
   totalCount,
   scrapedSlugs,
+  favoriteSet,
 }: {
   artists: Artist[];
   totalCount: number;
   scrapedSlugs: Set<string>;
+  favoriteSet: Set<string>;
 }) {
   const navigate = useNavigate();
 
@@ -148,19 +157,23 @@ function MobileArtistList({
     <ul>
       {artists.map((artist) => {
         const enabled = scrapedSlugs.has(artist.slug);
+        const isFavorite = favoriteSet.has(artist.slug);
         return (
           <li key={artist.slug}>
             <button
               onClick={() => enabled && navigate(`/artist/${artist.slug}`)}
               disabled={!enabled}
-              className={`w-full text-left px-4 py-3.5 border-b border-border/60 text-sm transition-colors
+              className={`w-full flex items-center gap-2 text-left px-4 py-3.5 border-b border-border/60 text-sm transition-colors
                 ${enabled
                   ? 'text-text-primary active:bg-white/5'
                   : 'text-text-muted cursor-not-allowed'
                 }
               `}
             >
-              {artist.name}
+              <span className="flex-1 truncate">{artist.name}</span>
+              {isFavorite && (
+                <Bookmark size={11} className="text-text-muted fill-current shrink-0" aria-label="Favorite" />
+              )}
             </button>
           </li>
         );
