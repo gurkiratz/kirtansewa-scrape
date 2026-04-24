@@ -4,9 +4,11 @@ import {
   ArrowLeft,
   Play,
   Shuffle,
-  Plus,
   Heart,
   MoreHorizontal,
+  ListPlus,
+  Search,
+  X,
 } from "lucide-react";
 import type { ArtistDetail as ArtistDetailType } from "../types";
 import { toTrack, type TrackMeta } from "../types";
@@ -231,7 +233,7 @@ export function ArtistDetail() {
               className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:border-text-secondary transition-colors"
               title="Add all to playlist"
             >
-              <Plus size={18} />
+              <ListPlus size={18} />
             </button>
             <button
               onClick={() => slug && toggleFavoriteArtist(slug)}
@@ -240,14 +242,16 @@ export function ArtistDetail() {
                   ? "border-gold bg-gold/15 text-gold"
                   : "border-border text-text-secondary hover:text-text-primary hover:border-text-secondary"
               }`}
-              aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+              aria-label={
+                isFavorite ? "Remove from favorites" : "Add to favorites"
+              }
               title={isFavorite ? "Remove from favorites" : "Add to favorites"}
             >
               <Heart size={16} className={isFavorite ? "fill-current" : ""} />
             </button>
             <button
               onClick={handleAddAll}
-              className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:border-text-secondary transition-colors"
+              className="w-9 h-9 rounded-full border border-border flex items-center justify-center text-text-secondary hover:text-text-primary hover:border-text-secondary transition-colors hidden"
               title="Add all to queue"
             >
               <MoreHorizontal size={16} />
@@ -313,6 +317,8 @@ function TrackSection({
   const queue = usePlayerStore((s) => s.queue);
   const currentIndex = usePlayerStore((s) => s.currentIndex);
 
+  const [query, setQuery] = useState("");
+
   const allTracks = detail.tracks.map((r) => toTrack(r, meta));
 
   const isThisArtistQueue =
@@ -331,8 +337,41 @@ function TrackSection({
 
   const activeIndex = isThisArtistQueue ? currentIndex : -1;
 
+  const q = query.trim().toLowerCase();
+  const visibleTracks = q
+    ? allTracks
+        .map((track, i) => ({ track, i }))
+        .filter(({ track }) => track.displayName.toLowerCase().includes(q))
+    : allTracks.map((track, i) => ({ track, i }));
+
   return (
     <>
+      {/* Search */}
+      <div className="px-5 pt-3 pb-2 border-b border-border/50">
+        <div className="relative">
+          <Search
+            size={13}
+            className="absolute left-2.5 top-1/2 -translate-y-1/2 text-text-primary/40 pointer-events-none"
+          />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search tracks..."
+            className="w-full bg-white/5 border border-border rounded-sm pl-8 pr-8 py-1.5 text-[13px] text-text-primary placeholder:text-text-primary/40 focus:outline-none focus:border-text-secondary transition-colors"
+          />
+          {query && (
+            <button
+              onClick={() => setQuery("")}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-text-primary/40 hover:text-text-primary"
+              aria-label="Clear search"
+            >
+              <X size={13} />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Column header */}
       <div className="flex items-center gap-3 px-5 py-2.5 border-b border-border text-[11px] text-text-primary uppercase tracking-wider">
         <span className="w-8 text-center shrink-0">#</span>
@@ -340,7 +379,12 @@ function TrackSection({
       </div>
 
       <div className="md:flex-1 md:overflow-y-auto">
-        {allTracks.map((track, i) => {
+        {visibleTracks.length === 0 && (
+          <div className="text-center text-text-muted text-sm py-10">
+            No tracks match "{query}"
+          </div>
+        )}
+        {visibleTracks.map(({ track, i }) => {
           const isActive = i === activeIndex;
           return (
             <button

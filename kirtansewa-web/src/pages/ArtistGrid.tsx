@@ -1,12 +1,13 @@
-import { useState, useMemo, useEffect, useRef } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ArrowUpDown, Bookmark } from 'lucide-react';
-import { useDataStore } from '../store/dataStore';
-import { useLibraryStore } from '../store/libraryStore';
-import { ArtistCard } from '../components/ArtistCard';
-import type { Artist } from '../types';
+import { useState, useMemo, useEffect, useRef } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { ArrowUpDown, Bookmark, LayoutGrid, List } from "lucide-react";
+import { useDataStore } from "../store/dataStore";
+import { useLibraryStore } from "../store/libraryStore";
+import { ArtistCard } from "../components/ArtistCard";
+import type { Artist } from "../types";
 
-type SortKey = 'name' | 'favorites';
+type SortKey = "name" | "favorites";
+type ViewMode = "grid" | "list";
 
 const PAGE_SIZE = 20;
 
@@ -19,15 +20,25 @@ export function ArtistGrid() {
   const favoriteArtists = useLibraryStore((s) => s.favoriteArtists);
 
   const [searchParams] = useSearchParams();
-  const query = searchParams.get('q') ?? '';
+  const query = searchParams.get("q") ?? "";
   const [sortBy, setSortBy] = useState<SortKey>(
-    () => (localStorage.getItem('artist-sort') as SortKey) || 'name',
+    () => (localStorage.getItem("artist-sort") as SortKey) || "name"
+  );
+  const [viewMode, setViewMode] = useState<ViewMode>(
+    () => (localStorage.getItem("artist-view") as ViewMode) || "grid"
   );
 
   const toggleSort = () =>
     setSortBy((prev) => {
-      const next = prev === 'name' ? 'favorites' : 'name';
-      localStorage.setItem('artist-sort', next);
+      const next = prev === "name" ? "favorites" : "name";
+      localStorage.setItem("artist-sort", next);
+      return next;
+    });
+
+  const toggleView = () =>
+    setViewMode((prev) => {
+      const next = prev === "grid" ? "list" : "grid";
+      localStorage.setItem("artist-view", next);
       return next;
     });
 
@@ -37,7 +48,7 @@ export function ArtistGrid() {
     return artists
       .filter((a) => a.name.toLowerCase().includes(q))
       .sort((a, b) => {
-        if (sortBy === 'favorites') {
+        if (sortBy === "favorites") {
           const aFav = favSet.has(a.slug) ? 1 : 0;
           const bFav = favSet.has(b.slug) ? 1 : 0;
           if (aFav !== bFav) return bFav - aFav;
@@ -64,14 +75,17 @@ export function ArtistGrid() {
           setVisibleCount((c) => Math.min(c + PAGE_SIZE, filtered.length));
         }
       },
-      { root, rootMargin: '400px' },
+      { root, rootMargin: "400px" }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, [visibleCount, filtered.length]);
 
   const visible = filtered.slice(0, visibleCount);
-  const favoriteSet = useMemo(() => new Set(favoriteArtists), [favoriteArtists]);
+  const favoriteSet = useMemo(
+    () => new Set(favoriteArtists),
+    [favoriteArtists]
+  );
 
   if (loading) {
     return (
@@ -84,13 +98,32 @@ export function ArtistGrid() {
   return (
     <div ref={scrollRef} className="flex-1 overflow-y-auto">
       {/* Toolbar */}
-      <div className="sticky top-0 z-10 bg-surface border-b border-border px-4 md:px-5 py-2.5 flex items-center gap-3 md:gap-4">
+      <div className="sticky top-0 z-10 bg-surface border-b border-border px-4 md:px-5 py-2.5 flex items-center gap-6">
         <button
           onClick={toggleSort}
-          className="flex items-center gap-1.5 text-xs text-gold hover:text-gold/80 transition-colors"
+          className={`flex items-center gap-1.5 text-xs transition-colors ${
+            sortBy === "favorites"
+              ? ""
+              : "text-text-muted hover:text-text-secondary"
+          }`}
         >
           <ArrowUpDown size={14} />
-          <span>{sortBy === 'name' ? 'A\u2013Z' : 'Favorites'}</span>
+          <span>{sortBy === "name" ? "A\u2013Z" : "Favorites"}</span>
+        </button>
+
+        <button
+          onClick={toggleView}
+          className={`flex items-center gap-1.5 text-xs transition-colors ${
+            viewMode === "grid"
+              ? ""
+              : "text-text-muted hover:text-text-secondary"
+          }`}
+          title={
+            viewMode === "grid" ? "Switch to list view" : "Switch to grid view"
+          }
+        >
+          {viewMode === "grid" ? <LayoutGrid size={14} /> : <List size={14} />}
+          <span>{viewMode === "grid" ? "Grid" : "List"}</span>
         </button>
 
         <span className="text-text-muted text-xs ml-auto shrink-0">
@@ -98,34 +131,66 @@ export function ArtistGrid() {
         </span>
       </div>
 
-      {/* Mobile: flat name list */}
-      <div className="md:hidden">
-        <MobileArtistList
-          artists={visible}
-          totalCount={filtered.length}
-          scrapedSlugs={scrapedSlugs}
-          favoriteSet={favoriteSet}
-        />
-      </div>
-
-      {/* Desktop: card grid */}
-      <div className="hidden md:grid p-5 gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}>
-        {visible.map((artist) => (
-          <ArtistCard
-            key={artist.slug}
-            artist={artist}
-            enabled={scrapedSlugs.has(artist.slug)}
-            imageUrl={imageUrls.get(artist.slug)}
-            trackCount={trackCounts.get(artist.slug)}
-            isFavorite={favoriteSet.has(artist.slug)}
-          />
-        ))}
-        {filtered.length === 0 && (
-          <div className="col-span-full text-center text-text-muted text-sm py-16">
-            No artists found
+      {filtered.length === 0 ? (
+        <div className="text-center text-text-muted text-sm py-16">
+          No artists found
+        </div>
+      ) : viewMode === "grid" ? (
+        <>
+          {/* Mobile: 2-col card grid */}
+          <div className="md:hidden grid grid-cols-2 gap-3 p-3">
+            {visible.map((artist) => (
+              <ArtistCard
+                key={artist.slug}
+                artist={artist}
+                enabled={scrapedSlugs.has(artist.slug)}
+                imageUrl={imageUrls.get(artist.slug)}
+                trackCount={trackCounts.get(artist.slug)}
+                isFavorite={favoriteSet.has(artist.slug)}
+              />
+            ))}
           </div>
-        )}
-      </div>
+
+          {/* Desktop: card grid */}
+          <div
+            className="hidden md:grid p-5 gap-4"
+            style={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+            }}
+          >
+            {visible.map((artist) => (
+              <ArtistCard
+                key={artist.slug}
+                artist={artist}
+                enabled={scrapedSlugs.has(artist.slug)}
+                imageUrl={imageUrls.get(artist.slug)}
+                trackCount={trackCounts.get(artist.slug)}
+                isFavorite={favoriteSet.has(artist.slug)}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          {/* Mobile: flat name list */}
+          <div className="md:hidden">
+            <MobileArtistList
+              artists={visible}
+              scrapedSlugs={scrapedSlugs}
+              favoriteSet={favoriteSet}
+            />
+          </div>
+
+          {/* Desktop: multi-column list */}
+          <div className="hidden md:block p-5">
+            <DesktopArtistList
+              artists={visible}
+              scrapedSlugs={scrapedSlugs}
+              favoriteSet={favoriteSet}
+            />
+          </div>
+        </>
+      )}
 
       {visibleCount < filtered.length && (
         <div ref={sentinelRef} className="h-8" aria-hidden />
@@ -136,22 +201,14 @@ export function ArtistGrid() {
 
 function MobileArtistList({
   artists,
-  totalCount,
   scrapedSlugs,
   favoriteSet,
 }: {
   artists: Artist[];
-  totalCount: number;
   scrapedSlugs: Set<string>;
   favoriteSet: Set<string>;
 }) {
   const navigate = useNavigate();
-
-  if (totalCount === 0) {
-    return (
-      <p className="text-center text-text-muted text-sm py-16">No artists found</p>
-    );
-  }
 
   return (
     <ul>
@@ -164,15 +221,71 @@ function MobileArtistList({
               onClick={() => enabled && navigate(`/artist/${artist.slug}`)}
               disabled={!enabled}
               className={`w-full flex items-center gap-2 text-left px-4 py-3.5 border-b border-border/60 text-sm transition-colors
-                ${enabled
-                  ? 'text-text-primary active:bg-white/5'
-                  : 'text-text-muted cursor-not-allowed'
+                ${
+                  enabled
+                    ? "text-text-primary active:bg-white/5"
+                    : "text-text-muted cursor-not-allowed"
                 }
               `}
             >
               <span className="flex-1 truncate">{artist.name}</span>
               {isFavorite && (
-                <Bookmark size={11} className="text-text-muted fill-current shrink-0" aria-label="Favorite" />
+                <Bookmark
+                  size={11}
+                  className="text-text-muted fill-current shrink-0"
+                  aria-label="Favorite"
+                />
+              )}
+            </button>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function DesktopArtistList({
+  artists,
+  scrapedSlugs,
+  favoriteSet,
+}: {
+  artists: Artist[];
+  scrapedSlugs: Set<string>;
+  favoriteSet: Set<string>;
+}) {
+  const navigate = useNavigate();
+
+  return (
+    <ul
+      style={{
+        columnWidth: "260px",
+        columnGap: "2.5rem",
+        columnRule: "1px solid rgba(255, 255, 255, 0.06)",
+      }}
+    >
+      {artists.map((artist) => {
+        const enabled = scrapedSlugs.has(artist.slug);
+        const isFavorite = favoriteSet.has(artist.slug);
+        return (
+          <li key={artist.slug} style={{ breakInside: "avoid" }}>
+            <button
+              onClick={() => enabled && navigate(`/artist/${artist.slug}`)}
+              disabled={!enabled}
+              className={`w-full flex items-center gap-3 text-left px-2 py-2.5 border-b border-border/60 text-sm rounded-sm transition-colors
+                ${
+                  enabled
+                    ? "text-text-primary hover:bg-white/5"
+                    : "text-text-muted cursor-not-allowed opacity-60"
+                }
+              `}
+            >
+              <span className="flex-1 truncate">{artist.name}</span>
+              {isFavorite && (
+                <Bookmark
+                  size={11}
+                  className="text-text-muted fill-current shrink-0"
+                  aria-label="Favorite"
+                />
               )}
             </button>
           </li>
